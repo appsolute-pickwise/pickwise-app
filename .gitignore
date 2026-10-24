@@ -1,0 +1,18 @@
+# Flutter generated files
+
+.dart_tool/
+
+.flutter-plugins-dependencies
+
+# FVM local SDK
+
+.fvm/flutter_sdk/
+
+# Android Studio / IntelliJ
+
+.idea/
+
+*.iml
+
+# FVM Version Cache
+.fvm/
