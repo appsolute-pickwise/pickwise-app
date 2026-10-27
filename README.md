@@ -1,17 +1,43 @@
-# pickwise
+# PickWise
 
-A new Flutter project.
+PickWise는 사용자가 중요하게 생각하는 기준으로 제품을 비교하고 선택할 수 있도록 돕는 앱입니다.
 
-## Getting Started
+## MVP 범위
 
-This project is a starting point for a Flutter application.
+- 로컬 JSON에 정리한 제품 정보 사용
+- 제품을 최대 3개까지 비교
+- 제품 상세 정보 확인
+- 제품별 네이버 쇼핑 링크로 이동
 
-A few resources to get you started if this is your first Flutter project:
+## 브랜치 규칙
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- `main`: 팀에서 확인한 코드만 반영합니다.
+- 각자 담당 브랜치에서 작업합니다. 예: `team-LJY`
+- `main`에 직접 커밋하지 않고 Pull Request(PR)로 반영합니다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 커밋 메시지 규칙
+
+`종류: 변경한 내용` 형식으로 짧고 구체적으로 작성합니다.
+
+사용 시점 | 예시 
+
+| 기능 추가 | `제품 3개 비교표 추가` |
+
+| 오류 수정 | `가격 표시 오류 수정` |
+
+| 동작을 유지하며 코드 정리 | `비교 점수 계산 분리` |
+
+| 문서 수정 | `협업 규칙 추가` |
+
+|  설정·기타 작업 | `Flutter 설정 정리` |
+
+한 커밋에는 한 가지 목적의 변경을 담습니다. `수정`, `작업 완료`처럼 변경 내용을 확실히 알 수 없는 애매한 커밋 메시지는 사용하지 않습니다.
+
+## PR 규칙
+
+1. 변경한 기능과 확인 방법을 PR 설명에 적습니다.
+2. 화면을 바꿨다면 스크린샷을 첨부합니다(필수는 아님).
+3. `flutter analyze`를 실행하고 변경한 화면의 주요 흐름을 직접 확인합니다.
+4. 팀원 1명이 확인한 뒤 `main`에 병합합니다.
+
+**API 키, 비밀번호, 개인 정보는 저장소에 커밋하지 않습니다.**
