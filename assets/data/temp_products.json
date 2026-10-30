@@ -1,0 +1,197 @@
+[
+  {
+    "id": "sony-wf-1000xm5",
+    "brand": "Sony",
+    "name": "WF-1000XM5",
+    "imageAsset": "assets/images/products/sony-wf-1000xm5.png",
+    "category": "earbuds",
+    "price": 306490,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=27250154",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.9,
+        "unit": "g",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  },
+  {
+    "id": "samsung-galaxy-buds3-pro",
+    "brand": "Samsung",
+    "name": "Galaxy Buds3 Pro",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3-pro.jpg",
+    "category": "earbuds",
+    "price": 218430,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=59537216",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 26,
+        "unit": "시간",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.4,
+        "unit": "g",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  },
+  {
+    "id": "apple-airpods-pro-3",
+    "brand": "Apple",
+    "name": "AirPods Pro 3",
+    "imageAsset": "assets/images/products/apple-airpods-pro-3.png",
+    "category": "earbuds",
+    "price": 264320,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=97405013",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.55,
+        "unit": "g",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  }
+]
