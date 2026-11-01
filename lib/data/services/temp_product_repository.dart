@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import '../models/temp_product_model.dart';
 
 class ProductRepository {
-  static const String _productsAssetPath = 'assets/data/products.json';
+  static const String _productsAssetPath = 'assets/data/temp_products.json';
 
   Future<List<Product>> loadProducts() async {
     final jsonContent = await rootBundle.loadString(_productsAssetPath);
