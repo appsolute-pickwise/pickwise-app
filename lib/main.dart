@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pickwise/presentation/screens/liking_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      MaterialApp(
+        home: LikingScreen(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
