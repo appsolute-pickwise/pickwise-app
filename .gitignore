@@ -1,6 +1,8 @@
 # Flutter generated files
 
 .dart_tool/
+build/
+android/.kotlin/
 
 .flutter-plugins-dependencies
 
