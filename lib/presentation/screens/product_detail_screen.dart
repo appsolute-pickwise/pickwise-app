@@ -59,9 +59,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final battery =
-        _specification('maxBatteryHoursAncOn') ??
-        _specification('batteryHoursAncOn');
+    final caseBattery = _specification('maxBatteryHoursAncOn');
+    final battery = caseBattery ?? _specification('batteryHoursAncOn');
+    final includesCase = caseBattery != null;
     final weight = _specification('weight');
     final waterResistance = _specification('waterResistance');
     final anc = _specification('anc');
@@ -131,7 +131,11 @@ class ProductDetailScreen extends StatelessWidget {
                   value: battery == null
                       ? '정보 없음'
                       : '최대 ${battery.value}${battery.unit ?? ''}',
-                  label: '총 배터리',
+                  label: includesCase
+                      ? '총 배터리'
+                      : battery == null
+                      ? '배터리'
+                      : '이어버드 배터리',
                   highlighted: true,
                 ),
                 const SizedBox(width: 8),
@@ -181,7 +185,7 @@ class ProductDetailScreen extends StatelessWidget {
                   _FeatureLine(
                     text: battery == null
                         ? '배터리 정보 없음'
-                        : '최대 ${battery.value}${battery.unit ?? ''} · 케이스 포함 · ANC 켬',
+                        : '최대 ${battery.value}${battery.unit ?? ''} · ${includesCase ? '케이스 포함' : '이어버드'} · ANC 켬',
                     icon: Icons.battery_5_bar_outlined,
                   ),
                 ],
@@ -206,7 +210,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   _SpecificationSourceRow(
-                    label: '케이스 포함 재생 시간 · ANC 켬',
+                    label: battery?.label ?? '재생 시간 · ANC 켬',
                     specification: battery,
                     onTap: battery == null
                         ? null
@@ -245,16 +249,22 @@ class ProductDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 78,
-            child: Padding(
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-              child: SizedBox.expand(
+              child: SizedBox(
+                width: double.infinity,
                 child: FilledButton(
                   style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     backgroundColor: _green,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -272,9 +282,9 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          const PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
-        ],
+            const PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
+          ],
+        ),
       ),
     );
   }

@@ -46,8 +46,9 @@ class PriceCheckScreen extends StatelessWidget {
         ),
         title: const Text('가격 확인하기'),
       ),
-      bottomNavigationBar: const PickWiseBottomNavigation(
-        selectedTab: PickWiseTab.explore,
+      bottomNavigationBar: const SafeArea(
+        top: false,
+        child: PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 14, 24, 24),
@@ -55,7 +56,7 @@ class PriceCheckScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 108,
+              constraints: const BoxConstraints(minHeight: 108),
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: const Color(0xFFF5F6F8),
@@ -76,6 +77,7 @@ class PriceCheckScreen extends StatelessWidget {
                   const SizedBox(width: 11),
                   Expanded(
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -145,7 +147,7 @@ class PriceCheckScreen extends StatelessWidget {
             const SizedBox(height: 15),
             Container(
               width: double.infinity,
-              height: 194,
+              constraints: const BoxConstraints(minHeight: 194),
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -153,6 +155,7 @@ class PriceCheckScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -162,9 +165,13 @@ class PriceCheckScreen extends StatelessWidget {
                   const SizedBox(height: 23),
                   SizedBox(
                     width: double.infinity,
-                    height: 54,
                     child: FilledButton(
                       style: FilledButton.styleFrom(
+                        minimumSize: const Size.fromHeight(54),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         backgroundColor: _green,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
