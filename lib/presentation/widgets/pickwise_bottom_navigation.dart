@@ -21,89 +21,62 @@ class PickWiseBottomNavigation extends StatelessWidget {
         ? selectedTab
         : PickWiseTab.values[navigation.index];
     void select(PickWiseTab tab) {
+      FocusManager.instance.primaryFocus?.unfocus();
       navigation?.select(tab.index);
       Navigator.of(context).popUntil((route) => route.isFirst);
     }
 
-    return Container(
-      height: 76,
+    Widget svgIcon(String asset, Color color) => SvgPicture.asset(
+      asset,
+      width: 22,
+      height: 22,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+    );
+
+    return DecoratedBox(
+      position: DecorationPosition.foreground,
       decoration: const BoxDecoration(
-        color: Colors.white,
         border: Border(top: BorderSide(color: Color(0xFFE5E8EB))),
       ),
-      child: Row(
-        children: [
-          _NavigationItem(
+      child: NavigationBar(
+        height: 64,
+        animationDuration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : const Duration(milliseconds: 220),
+        selectedIndex: activeTab.index,
+        onDestinationSelected: navigation == null
+            ? null
+            : (index) => select(PickWiseTab.values[index]),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        indicatorColor: const Color(0xFFE5F0E9),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          final selected = states.contains(WidgetState.selected);
+          return TextStyle(
+            color: selected ? _green : _muted,
+            fontSize: 11,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+          );
+        }),
+        destinations: [
+          NavigationDestination(
             label: '홈',
-            selected: activeTab == PickWiseTab.home,
-            onTap: navigation == null ? null : () => select(PickWiseTab.home),
-            icon: SvgPicture.asset('assets/images/figma/home.svg'),
+            icon: svgIcon('assets/images/figma/home.svg', _muted),
+            selectedIcon: svgIcon('assets/images/figma/home.svg', _green),
           ),
-          _NavigationItem(
+          NavigationDestination(
             label: '탐색',
-            selected: activeTab == PickWiseTab.explore,
-            onTap: navigation == null
-                ? null
-                : () => select(PickWiseTab.explore),
-            icon: SvgPicture.asset('assets/images/figma/search.svg'),
+            icon: svgIcon('assets/images/figma/search.svg', _muted),
+            selectedIcon: svgIcon('assets/images/figma/search.svg', _green),
           ),
-          _NavigationItem(
+          const NavigationDestination(
             label: '비교',
-            selected: activeTab == PickWiseTab.compare,
-            onTap: navigation == null
-                ? null
-                : () => select(PickWiseTab.compare),
-            icon: _CompareIcon(
-              color: activeTab == PickWiseTab.compare ? _green : _muted,
-            ),
+            icon: _CompareIcon(color: _muted),
+            selectedIcon: _CompareIcon(color: _green),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _NavigationItem extends StatelessWidget {
-  const _NavigationItem({
-    required this.label,
-    required this.selected,
-    required this.icon,
-    this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final Widget icon;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = selected
-        ? PickWiseBottomNavigation._green
-        : PickWiseBottomNavigation._muted;
-
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(width: 20, height: 20, child: Center(child: icon)),
-              const SizedBox(height: 3),
-              Text(
-                label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 10,
-                  height: 1.4,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

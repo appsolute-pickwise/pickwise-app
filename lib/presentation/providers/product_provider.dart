@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/models/product.dart';
+import '../../data/models/product_preferences.dart';
 import '../../data/services/product_repository.dart';
 
 enum ProductSelectionResult {
@@ -28,6 +29,14 @@ class ProductProvider extends ChangeNotifier {
   final List<String> _selectedProductIds = [];
   bool _isLoading = false;
   Object? _loadError;
+  ProductPreferences _selectionPreferences = const ProductPreferences();
+
+  ProductPreferences get selectionPreferences => _selectionPreferences;
+
+  void updateSelectionPreferences(ProductPreferences preferences) {
+    _selectionPreferences = preferences.withWeights(preferences.weights);
+    notifyListeners();
+  }
 
   List<Product> get products => List.unmodifiable(_products);
   bool get isLoading => _isLoading;

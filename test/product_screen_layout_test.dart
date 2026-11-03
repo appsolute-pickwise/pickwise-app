@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product.dart';
+import 'package:pickwise/data/services/product_repository.dart';
 import 'package:pickwise/presentation/screens/price_check_screen.dart';
 import 'package:pickwise/presentation/screens/product_detail_screen.dart';
 
@@ -58,6 +59,25 @@ Future<void> _pumpScreen(
 }
 
 void main() {
+  testWidgets('운영 제품 20개의 상세와 가격 화면이 320px에서 정상 표시된다', (tester) async {
+    final products = await tester.runAsync(ProductRepository().loadProducts);
+    expect(products, hasLength(20));
+    for (final product in products!) {
+      for (final screen in [
+        ProductDetailScreen(product: product),
+        PriceCheckScreen(product: product),
+      ]) {
+        await _pumpScreen(tester, screen, width: 320);
+        expect(find.text(product.name), findsOneWidget);
+        expect(
+          tester.takeException(),
+          isNull,
+          reason: '${product.id}: ${screen.runtimeType}',
+        );
+      }
+    }
+  });
+
   for (final width in [320.0, 390.0]) {
     for (final scale in [1.5, 2.0]) {
       testWidgets('가격 확인 화면은 폭 $width, 글자 배율 $scale 에서 넘치지 않는다', (
@@ -120,8 +140,31 @@ void main() {
     await _pumpScreen(tester, ProductDetailScreen(product: _product()));
     expect(find.text('배터리 정보 없음'), findsOneWidget);
     expect(find.text('배터리'), findsOneWidget);
-    expect(find.text('재생 시간 · ANC 켬'), findsOneWidget);
+    expect(find.text('재생 시간'), findsOneWidget);
     expect(find.textContaining('최대 '), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('ANC 미지원 제품은 일반 재생 시간으로 표시한다', (tester) async {
+    await _pumpScreen(
+      tester,
+      ProductDetailScreen(
+        product: _product(
+          specs: const [
+            ProductSpecification(key: 'anc', label: 'ANC', value: false),
+            ProductSpecification(
+              key: 'maxBatteryHours',
+              label: '케이스 포함 재생 시간 (일반 재생)',
+              value: 30,
+              unit: '시간',
+            ),
+          ],
+        ),
+      ),
+      width: 320,
+    );
+    expect(find.text('최대 30시간 · 케이스 포함 · 일반 재생'), findsOneWidget);
+    expect(find.textContaining('ANC 켬'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 }

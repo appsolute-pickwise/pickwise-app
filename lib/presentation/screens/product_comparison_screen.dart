@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/product.dart';
+import '../../data/models/product_preferences.dart';
 import '../providers/product_provider.dart';
 import '../providers/app_navigation_controller.dart';
 import '../widgets/pickwise_bottom_navigation.dart';
@@ -116,9 +117,16 @@ class ProductComparisonScreen extends StatelessWidget {
                             _openDetail(context, product),
                         onOpenPrice: (product) => _openPrice(context, product),
                       ),
-                      if (products.length > 1) ...[
+                      if (products.length > 1 ||
+                          products.any(
+                            (product) =>
+                                !provider.selectionPreferences.matches(product),
+                          )) ...[
                         const SizedBox(height: 20),
-                        _DifferenceSummary(products: products),
+                        _DifferenceSummary(
+                          products: products,
+                          preferences: provider.selectionPreferences,
+                        ),
                       ],
                       const SizedBox(height: 26),
                       const Text(
@@ -173,13 +181,22 @@ class ProductComparisonScreen extends StatelessWidget {
 }
 
 class _DifferenceSummary extends StatelessWidget {
-  const _DifferenceSummary({required this.products});
+  const _DifferenceSummary({required this.products, required this.preferences});
 
   final List<Product> products;
+  final ProductPreferences preferences;
 
   @override
   Widget build(BuildContext context) {
-    final insights = _buildInsights(products);
+    final personal = preferences.comparisonInsights(products);
+    final failed = products.where((p) => !preferences.matches(p));
+    final insights = [
+      for (final product in failed)
+        '${product.name}: 현재 필수·선택 조건과 달라요 (${preferences.exclusionReasons(product).join(', ')}).',
+      ...personal,
+      ..._buildInsights(products)
+          .where((text) => personal.isEmpty || text.contains('저렴해요.')),
+    ];
     if (insights.isEmpty) return const SizedBox.shrink();
 
     return Container(
@@ -193,14 +210,24 @@ class _DifferenceSummary extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '선택한 제품의 차이',
-            style: TextStyle(
+          Text(
+            preferences.priorities.isEmpty ? '선택한 제품의 차이' : '내 기준으로 본 차이',
+            style: const TextStyle(
               color: Color(0xFF191F28),
               fontSize: 13,
               fontWeight: FontWeight.w700,
             ),
           ),
+          if (preferences.priorities.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(
+              preferences.priorities
+                  .toSet()
+                  .map((key) => '$key ${preferences.weightFor(key)}/5')
+                  .join(' · '),
+              style: const TextStyle(fontSize: 11, color: Color(0xFF657181)),
+            ),
+          ],
           const SizedBox(height: 9),
           for (var index = 0; index < insights.length; index++) ...[
             if (index > 0) const SizedBox(height: 7),
@@ -255,12 +282,17 @@ class _DifferenceSummary extends StatelessWidget {
         .map(
           (product) => (
             product: product,
-            value: _numericSpec(product, 'maxBatteryHoursAncOn'),
+            value: product.caseBattery?.value is num
+                ? (product.caseBattery!.value as num).toDouble()
+                : null,
           ),
         )
         .where((entry) => entry.value != null)
         .toList(growable: false);
-    if (batteries.length > 1) {
+    final batteryConditions = batteries
+        .map((entry) => entry.product.caseBattery!.playbackCondition)
+        .toSet();
+    if (batteries.length > 1 && batteryConditions.length == 1) {
       final shortest = batteries.reduce(
         (left, right) => left.value! <= right.value! ? left : right,
       );
@@ -270,7 +302,7 @@ class _DifferenceSummary extends StatelessWidget {
       final difference = longest.value! - shortest.value!;
       if (difference > 0) {
         insights.add(
-          '${_brandName(longest.product)}이(가) 케이스 포함 재생 시간이 '
+          '${_brandName(longest.product)}이(가) ${batteryConditions.single} 기준 케이스 포함 재생 시간이 '
           '${_brandName(shortest.product)}보다 ${_number(difference)}시간 길어요.',
         );
       }
@@ -302,7 +334,7 @@ class _DifferenceSummary extends StatelessWidget {
     return insights;
   }
 
-  String _brandName(Product product) => product.brand;
+  String _brandName(Product product) => product.name;
 
   double? _numericSpec(Product product, String key) {
     for (final specification in product.specs) {
@@ -469,6 +501,16 @@ class _SpecificationTable extends StatelessWidget {
                         (product) => formatCompactDate(product.priceCheckedAt),
                       )
                       .toList(growable: false)
+                : _rows[index].$2 == 'battery'
+                ? products
+                      .map((product) {
+                        final battery =
+                            product.caseBattery ?? product.earbudBattery;
+                        return battery == null
+                            ? ''
+                            : '${product.caseBattery != null ? '케이스 포함' : '이어버드'} · ${battery.playbackCondition}';
+                      })
+                      .toList(growable: false)
                 : null,
             background: switch (index) {
               0 || 2 => const Color(0xFFF5F6F8),
@@ -482,12 +524,15 @@ class _SpecificationTable extends StatelessWidget {
 
   String _valueFor(Product product, String key) {
     if (key == 'price') return '${formatPrice(product.price)}원';
-    final specificationKey = key == 'battery' ? 'maxBatteryHoursAncOn' : key;
+    if (key == 'battery') {
+      final battery = product.caseBattery ?? product.earbudBattery;
+      return battery == null
+          ? '정보 없음'
+          : '${battery.value}${battery.unit ?? ''}';
+    }
+    final specificationKey = key;
     for (final specification in product.specs) {
       if (specification.key == specificationKey) {
-        if (key == 'battery') {
-          return '${specification.value}${specification.unit ?? ''}';
-        }
         if (key == 'weight') {
           return '${specification.value}${specification.unit ?? ''} / 1개';
         }
@@ -539,9 +584,12 @@ class _SpecificationRow extends StatelessWidget {
                 ),
                 if (detailValues != null) ...[
                   const SizedBox(height: 2),
-                  const Text(
-                    '확인일',
-                    style: TextStyle(color: Color(0xFF8B95A1), fontSize: 8),
+                  Text(
+                    keyName == 'price' ? '확인일' : '재생 조건',
+                    style: const TextStyle(
+                      color: Color(0xFF8B95A1),
+                      fontSize: 8,
+                    ),
                   ),
                 ],
               ],
@@ -560,8 +608,7 @@ class _SpecificationRow extends StatelessWidget {
                           const SizedBox(height: 2),
                           Text(
                             detailValues![index],
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Color(0xFF8B95A1),

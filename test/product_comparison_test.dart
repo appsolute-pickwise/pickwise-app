@@ -23,6 +23,41 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  testWidgets('좁은 화면에서 재생 조건이 다른 제품 3개를 구분해서 비교한다', (tester) async {
+    tester.view.physicalSize = const Size(320, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final products = await tester.runAsync(ProductRepository().loadProducts);
+    final selected = [
+      products!.singleWhere((product) => product.id == 'soundcore-p20i'),
+      products.singleWhere((product) => product.id == 'soundcore-p41i'),
+      products.singleWhere((product) => product.id == 'apple-airpods-4-anc'),
+    ];
+    final provider = ProductProvider(
+      repository: _FakeProductRepository(selected),
+    );
+    addTearDown(provider.dispose);
+    await provider.loadProducts();
+    for (final product in selected) {
+      provider.addToComparison(product.id);
+    }
+    await tester.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: provider,
+        child: const MaterialApp(home: ProductComparisonScreen()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('30시간'), findsOneWidget);
+    expect(find.text('160시간'), findsOneWidget);
+    expect(find.text('20시간'), findsOneWidget);
+    expect(find.text('케이스 포함 · 일반 재생'), findsOneWidget);
+    expect(find.text('케이스 포함 · ANC 켬'), findsNWidgets(2));
+    expect(find.textContaining('시간 길어요.'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('선택한 제품을 상세와 가격 확인 화면까지 전달한다', (tester) async {
     final product = Product(
       id: 'test-earbud',

@@ -38,6 +38,19 @@ class Product {
   final List<ProductSpecification> specs;
   final List<String> tags;
 
+  ProductSpecification? specification(String key) {
+    for (final spec in specs) {
+      if (spec.key == key) return spec;
+    }
+    return null;
+  }
+
+  ProductSpecification? get earbudBattery =>
+      specification('batteryHoursAncOn') ?? specification('batteryHours');
+
+  ProductSpecification? get caseBattery =>
+      specification('maxBatteryHoursAncOn') ?? specification('maxBatteryHours');
+
   factory Product.fromJson(Map<String, dynamic> json) {
     final rawSpecs = json['specs'];
     if (rawSpecs is! List) {
@@ -86,6 +99,8 @@ class ProductSpecification {
   final String? unit;
   final Uri? sourceUrl;
   final DateTime? checkedAt;
+
+  String get playbackCondition => key.endsWith('AncOn') ? 'ANC 켬' : '일반 재생';
 
   factory ProductSpecification.fromJson(Map<String, dynamic> json) {
     final value = json['value'];

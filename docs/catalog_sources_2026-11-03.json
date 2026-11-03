@@ -1,0 +1,338 @@
+[
+  {
+    "id": "sony-wf-1000xm5",
+    "productTitle": "SONY WF-1000XM5 (정품) : 다나와 가격비교",
+    "price": 234710,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=27250154",
+    "fetchedAt": "2026-11-03T09:08:38.245912+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "5179a55853158b9d2ed5591f6fde196ac69bc9ecc877fa0e56064a3ab43b42b0",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/154/250/027/276c037a14a14794b662781b918aa19d.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=27250154",
+      "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+      "https://electronics.sony.com/best-premium-earbuds-under-300-sony-wf-1000xm5"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "58205ea29ee0d17f11818c2b2d03b3f5fea25bc4ee78356921249ac0201ca9fc"
+  },
+  {
+    "id": "samsung-galaxy-buds3-pro",
+    "productTitle": "삼성전자 갤럭시 버즈3 프로 SM-R630N (정품) : 다나와 가격비교",
+    "price": 210960,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=59537216",
+    "fetchedAt": "2026-11-03T09:08:39.046763+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "e082fc638f7af5ac4d32a5db906bd46cb62e590202101f275493ce1ecd1507bd",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/216/537/059/eb2de2f9a14549cf884df599d3acb862.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=59537216",
+      "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "32d53af60511e37bb0457a3685ad326cb4d1b84e7a286b36dc129c1e36228bb1"
+  },
+  {
+    "id": "apple-airpods-pro-3",
+    "productTitle": "APPLE 에어팟 프로3 MFHP4KH/A (정품) : 다나와 가격비교",
+    "price": 276890,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=97405013",
+    "fetchedAt": "2026-11-03T09:08:38.976445+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "b5fc1783b1c67f2be8be274da133a8cf4888ec17fc6bd411f73305bb02f2a53c",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/013/405/097/23a26ad29fab47059f63290ab9b10b9f.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=97405013",
+      "https://support.apple.com/en-au/125135"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "628ef4cf597fb575b8a565d80e39180f224621da42cd743431db0a1465511309"
+  },
+  {
+    "id": "apple-airpods-4",
+    "productTitle": "APPLE 에어팟4 MXP63KH/A (정품) : 다나와 가격비교",
+    "price": 150090,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=65920016",
+    "fetchedAt": "2026-11-03T09:08:37.931555+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "80b16bb87808ae1326649f51e9b38a15adeb349a49715642a173733de09e618b",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/016/920/065/5d3b211724aa4b44952993596394004c.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=65920016",
+      "https://support.apple.com/en-ie/121203"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "7ffc8b5ab20f4cc558ef41dc809820671be4cf2f6d22771915176c5573db5fc9"
+  },
+  {
+    "id": "sony-wf-c510",
+    "productTitle": "SONY WF-C510 (정품) : 다나와 가격비교",
+    "price": 81880,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=65432375",
+    "fetchedAt": "2026-11-03T09:08:39.372566+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "6325a5117bc37bb893f08fdf7a1291a55aa0c9822252dbe6f889c4d1293812c8",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/375/432/065/56adb65a1c4c47ac9422a8f8f6431cf9.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=65432375",
+      "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+      "https://www.sony.co.kr/headphones/products/wf-c510"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "c92c4b4408978e51f12194076d88d6d7e815c23c200d629a81e03b7ad9bb66d3"
+  },
+  {
+    "id": "sony-wf-c710n",
+    "productTitle": "SONY WF-C710N (정품) : 다나와 가격비교",
+    "price": 124200,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=83297033",
+    "fetchedAt": "2026-11-03T09:08:41.610275+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "de3788df4c85709c5250fca0186af92fb6380bf8b1b67821697c63846b4c6bdf",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/033/297/083/bfd4a3363be14d63a639b8661b7f0372.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=83297033",
+      "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+      "https://electronics.sony.com/audio/headphones/all-headphones/p/wfc710n-b"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "59e187f16d524b9d58a10413c13b739bfcd19fab61e5a61f1f0d1dd6e31e58a1"
+  },
+  {
+    "id": "sony-linkbuds-fit",
+    "productTitle": "SONY 링크버즈 핏 WF-LS910N (정품) : 다나와 가격비교",
+    "price": 229000,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=71505791",
+    "fetchedAt": "2026-11-03T09:08:40.544727+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "771eb40f74c417d6138b17fb9a679ea52a8434d6386eb77f95d86902f91df365",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/791/505/071/2e0f25dff0c14288be9654f77899ed4d.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=71505791",
+      "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+      "https://electronics.sony.com/audio/headphones/all-headphones/p/wfls910n-b?locale=en_US"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "389ad3d7ef3d8c63e0ee1cfaade6e00ce99553e372f9fee89ff243f5f154a331"
+  },
+  {
+    "id": "sony-linkbuds-open",
+    "productTitle": "SONY 링크버즈 오픈 WF-L910 (정품) : 다나와 가격비교",
+    "price": 247480,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=71160086",
+    "fetchedAt": "2026-11-03T09:08:41.117402+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "2a25c229d51a567583659e64db9cf65ce8bfff44ba9450ec61ec3bc78963ce78",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/086/160/071/02fda6415fd94015b98b6835dd504ac0.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=71160086",
+      "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+      "https://electronics.sony.com/audio/headphones/all-headphones/p/wfl910-b"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "f6deca913f13c99a146ca27c40f691102427626276da25fcb0ef34d98cd0d0e3"
+  },
+  {
+    "id": "samsung-galaxy-buds-fe",
+    "productTitle": "삼성전자 갤럭시 버즈 FE SM-R400 (정품) : 다나와 가격비교",
+    "price": 190000,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=28531961",
+    "fetchedAt": "2026-11-03T09:08:41.876768+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "c2d766003f5d3296b4268c8271d6d449bbbf0bc1020321b35392a349dbf420da",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/961/531/028/b96a1d42fb6e4826a54b55c8dea28db4.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=28531961",
+      "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "c78d8fca153caadba366172d5d36316f1012fa8f691a6d9daaebd2d09df2c3c6"
+  },
+  {
+    "id": "samsung-galaxy-buds3",
+    "productTitle": "삼성전자 갤럭시 버즈3 SM-R530N (정품) : 다나와 가격비교",
+    "price": 160360,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=59541506",
+    "fetchedAt": "2026-11-03T09:08:42.768434+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "89db90ab89247ebf3911179e6eeed52f1af3ade60021792b83fa083676d19277",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/506/541/059/7277ffc3205747c3b36a8bdcfdd85ba6.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=59541506",
+      "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "700784f2e20304c865193beab020c2bc90ccca32114b65bc66603947d83e92b8"
+  },
+  {
+    "id": "samsung-galaxy-buds3-fe",
+    "productTitle": "삼성전자 갤럭시 버즈3 FE SM-R420 (정품) : 다나와 가격비교",
+    "price": 129330,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=96987275",
+    "fetchedAt": "2026-11-03T09:08:43.229618+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "17c97c2161fc1b403395db5c79bb35cd1103e228cd403a8e9581147b2053f676",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/275/987/096/e9be51d175bc4c458f2939e060f32ecb.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=96987275",
+      "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "380815d9aab4991a297f6e8e41ea61ad532f8a73168748c070284c077ec05827"
+  },
+  {
+    "id": "soundcore-p20i",
+    "productTitle": "ANKER Soundcore P20i A3949 (해외구매) : 다나와 가격비교",
+    "price": 37480,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=53421806",
+    "fetchedAt": "2026-11-03T09:08:43.336161+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "f9391a7e2b5d70db18f6a2a6568920c61e6e8953810283de09475113e4ed9a76",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/806/421/053/aa95ac85e8fb4516a454434a8cff09bc.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=53421806",
+      "https://www.soundcore.com/products/soundcore-p30i",
+      "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50"
+    ],
+    "missingSpecifications": [
+      "weight"
+    ],
+    "imageSha256": "5c37ef0f4d65d195b95af101db59d10a94c1b53ea05840bb1fb929722bb771f7"
+  },
+  {
+    "id": "soundcore-p30i",
+    "productTitle": "ANKER Soundcore P30i A3959 (정품) : 다나와 가격비교",
+    "price": 32900,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=78716027",
+    "fetchedAt": "2026-11-03T09:08:43.967245+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "2347fc128109fa5f7b7d420594e8c1b8088781ee5679eb3ebf922aa866e00e6e",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/027/716/078/db22df6d759f4185b12cc7dca67df4f8.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=78716027",
+      "https://www.soundcore.com/products/soundcore-p30i",
+      "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50"
+    ],
+    "missingSpecifications": [
+      "weight"
+    ],
+    "imageSha256": "ce2f55139c45ba1e426f5a58c50a5fe3ad905b564e2e25c02ddeb04ab8d62690"
+  },
+  {
+    "id": "soundcore-p41i",
+    "productTitle": "ANKER Soundcore P41i A3937 (정품) : 다나와 가격비교",
+    "price": 69900,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=94086776",
+    "fetchedAt": "2026-11-03T09:08:44.429432+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "5cdeddaf1ecaeae8c0ca621f12884c5b0f091638290d865a9a8c1deb42d0c39d",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/776/086/094/b648132daa6e44aa979ccfb4ddda6b4d.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=94086776",
+      "https://service.soundcore.com/product-description/a08J1000000YrzOIAS/p41i",
+      "https://service.soundcore.com/article-description/soundcore-P41i-Earbuds-FAQ"
+    ],
+    "missingSpecifications": [
+      "weight"
+    ],
+    "imageSha256": "8e4ec8c6e50e72856c85ba67771cf1cc124f99ee10059af1ff6ba7ab8908bfa3"
+  },
+  {
+    "id": "soundcore-liberty-4-nc",
+    "productTitle": "ANKER Soundcore 리버티 4 NC A3947 (정품) : 다나와 가격비교",
+    "price": 96700,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=21726290",
+    "fetchedAt": "2026-11-03T09:08:44.628783+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "6e9c083848f7822b49bb80e2fe9bf870e46cca952234c3e83b0cbea9c2065879",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/290/726/021/20b60de87a9a4aae9321e485ed3b3332.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=21726290",
+      "https://www.soundcore.com/products/liberty-4-nc-a3947z11",
+      "https://www.soundcore.com/collections/spatial-audio-earbuds"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "5214c4b17c61a71e9c31f9e9b636e15235798922fb245a2dfee057d3a52855d8"
+  },
+  {
+    "id": "soundcore-aerofit-2",
+    "productTitle": "ANKER Soundcore 에어로핏 2 A3874X (정품) : 다나와 가격비교",
+    "price": 158900,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+    "fetchedAt": "2026-11-03T09:08:45.019704+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "e19fe3999b1adf0dfe05e7de90cb93437831fd0df9cfbfaff110414ef2494fcd",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/903/624/122/aee05dcb329c411db7c9891ea3438efb.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=122624903"
+    ],
+    "missingSpecifications": [
+      "weight"
+    ],
+    "imageSha256": "65f54a7154d83897e8d3cb7fcd9f48286a60c9eecb02f3c104e0b76f18144fb5"
+  },
+  {
+    "id": "soundcore-c40i",
+    "productTitle": "ANKER Soundcore C40i A3331 (정품) : 다나와 가격비교",
+    "price": 54900,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=101633138",
+    "fetchedAt": "2026-11-03T09:08:46.543767+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "414223a08a6dccee4e48681de442715d396be0fac226b241ba94d4bff6bedac3",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/138/633/101/02c81c1b34774f4da66410073192c756.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=101633138",
+      "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "4454adcb598af113475e15a5dd0d1700c7a15fe4d97c67db88da6f73196ab960"
+  },
+  {
+    "id": "jbl-wave-buds-2",
+    "productTitle": "JBL WAVE BUDS 2 (정품) : 다나와 가격비교",
+    "price": 56140,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=75858776",
+    "fetchedAt": "2026-11-03T09:08:46.369356+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "dfe5059cac8f09a979cfc309268b984dd85a52b7339a41b0c6b93dfd15b3fb6f",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/776/858/075/7d8d6842b17a452897f512243a486638.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=75858776",
+      "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "66ec91fca2026f5e0afa04bdc001a2992eabe42db2bfc10c921949a1010ec7cc"
+  },
+  {
+    "id": "jbl-tune-beam-2",
+    "productTitle": "JBL TUNE BEAM 2 (정품) : 다나와 가격비교",
+    "price": 89000,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=75859001",
+    "fetchedAt": "2026-11-03T09:08:46.313777+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "5b03e2971955ac40602c812785bb41f9c904fb5546e67b42aa805805da85985f",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/001/859/075/0c0f56baaa134c60ba4acbfe092dff0b.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=75859001",
+      "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "1bf1c3b286e83103502842975586d94cc5a7936e715c690ad78361621b5033b8"
+  },
+  {
+    "id": "apple-airpods-4-anc",
+    "productTitle": "APPLE 에어팟4 액티브 노이즈 캔슬링 MXP93KH/A (정품) : 다나와 가격비교",
+    "price": 173950,
+    "priceUrl": "https://prod.danawa.com/info/?pcode=65919884",
+    "fetchedAt": "2026-11-03T09:08:47.497883+00:00",
+    "priceExtraction": "HTML og:description 최저가 (배송비·카드 혜택가 별도)",
+    "pricePageSha256": "fd9d8737accf6908b0fc87a40db568178d2ed70c05992f29931a90710813d066",
+    "imageSourceUrl": "https://img.danuri.io/catalog-image/884/919/065/c05852c1218545ad93c32797dfe43ff7.jpg",
+    "specificationSources": [
+      "https://prod.danawa.com/info/?pcode=65919884",
+      "https://support.apple.com/ko-kr/121204"
+    ],
+    "missingSpecifications": [],
+    "imageSha256": "7ffc8b5ab20f4cc558ef41dc809820671be4cf2f6d22771915176c5573db5fc9"
+  }
+]

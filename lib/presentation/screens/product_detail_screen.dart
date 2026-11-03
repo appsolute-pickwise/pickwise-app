@@ -59,8 +59,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final caseBattery = _specification('maxBatteryHoursAncOn');
-    final battery = caseBattery ?? _specification('batteryHoursAncOn');
+    final caseBattery = product.caseBattery;
+    final battery = caseBattery ?? product.earbudBattery;
     final includesCase = caseBattery != null;
     final weight = _specification('weight');
     final waterResistance = _specification('waterResistance');
@@ -178,14 +178,14 @@ class ProductDetailScreen extends StatelessWidget {
                   _FeatureLine(
                     text: anc == null
                         ? '노이즈 캔슬링 정보 없음'
-                        : 'ANC ${formatSpecificationValue(anc)} · 공식 스펙 기준',
+                        : 'ANC ${formatSpecificationValue(anc)} · 등록 사양 기준',
                     icon: Icons.check,
                   ),
                   const SizedBox(height: 8),
                   _FeatureLine(
                     text: battery == null
                         ? '배터리 정보 없음'
-                        : '최대 ${battery.value}${battery.unit ?? ''} · ${includesCase ? '케이스 포함' : '이어버드'} · ANC 켬',
+                        : '최대 ${battery.value}${battery.unit ?? ''} · ${includesCase ? '케이스 포함' : '이어버드'} · ${battery.playbackCondition}',
                     icon: Icons.battery_5_bar_outlined,
                   ),
                 ],
@@ -210,7 +210,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   _SpecificationSourceRow(
-                    label: battery?.label ?? '재생 시간 · ANC 켬',
+                    label: battery?.label ?? '재생 시간',
                     specification: battery,
                     onTap: battery == null
                         ? null

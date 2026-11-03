@@ -3,16 +3,15 @@
     "id": "sony-wf-1000xm5",
     "brand": "Sony",
     "name": "WF-1000XM5",
-    "imageAsset": "assets/images/products/sony-wf-1000xm5.png",
     "category": "earbuds",
+    "imageAsset": "assets/images/products/sony-wf-1000xm5.jpg",
     "tags": [
       "통학",
-      "운동",
       "업무",
       "노캔"
     ],
-    "price": 306490,
-    "priceCheckedAt": "2026-10-28",
+    "price": 234710,
+    "priceCheckedAt": "2026-11-03",
     "priceComparisonSite": "danawa",
     "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=27250154",
     "specs": [
@@ -20,53 +19,53 @@
         "key": "wearType",
         "label": "착용 형태",
         "value": "커널형",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=27250154",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "anc",
         "label": "노이즈 캔슬링",
         "value": true,
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "batteryHoursAncOn",
         "label": "이어버드 재생 시간 (ANC 켬)",
         "value": 8,
-        "unit": "시간",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "maxBatteryHoursAncOn",
         "label": "케이스 포함 재생 시간 (ANC 켬)",
         "value": 24,
-        "unit": "시간",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://electronics.sony.com/best-premium-earbuds-under-300-sony-wf-1000xm5",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "weight",
         "label": "이어버드 무게 (한 쪽)",
         "value": 5.9,
-        "unit": "g",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
       },
       {
         "key": "waterResistance",
-        "label": "방수 등급",
+        "label": "방수 등급 (이어버드)",
         "value": "IPX4",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "bluetooth",
         "label": "블루투스",
         "value": "5.3",
-        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-11-03"
       }
     ]
   },
@@ -74,15 +73,15 @@
     "id": "samsung-galaxy-buds3-pro",
     "brand": "Samsung",
     "name": "Galaxy Buds3 Pro",
-    "imageAsset": "assets/images/products/samsung-galaxy-buds3-pro.jpg",
     "category": "earbuds",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3-pro.jpg",
     "tags": [
       "통학",
       "업무",
       "노캔"
     ],
-    "price": 218430,
-    "priceCheckedAt": "2026-10-28",
+    "price": 210960,
+    "priceCheckedAt": "2026-11-03",
     "priceComparisonSite": "danawa",
     "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=59537216",
     "specs": [
@@ -90,53 +89,53 @@
         "key": "wearType",
         "label": "착용 형태",
         "value": "커널형",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=59537216",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "anc",
         "label": "노이즈 캔슬링",
         "value": true,
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "batteryHoursAncOn",
         "label": "이어버드 재생 시간 (ANC 켬)",
         "value": 6,
-        "unit": "시간",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "maxBatteryHoursAncOn",
         "label": "케이스 포함 재생 시간 (ANC 켬)",
         "value": 26,
-        "unit": "시간",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "weight",
         "label": "이어버드 무게 (한 쪽)",
         "value": 5.4,
-        "unit": "g",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
       },
       {
         "key": "waterResistance",
-        "label": "방수 등급",
+        "label": "방수 등급 (이어버드)",
         "value": "IP57",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "bluetooth",
         "label": "블루투스",
         "value": "5.4",
-        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-pro-white-sm-r630nzwaxac/",
+        "checkedAt": "2026-11-03"
       }
     ]
   },
@@ -144,15 +143,15 @@
     "id": "apple-airpods-pro-3",
     "brand": "Apple",
     "name": "AirPods Pro 3",
-    "imageAsset": "assets/images/products/apple-airpods-pro-3.png",
     "category": "earbuds",
+    "imageAsset": "assets/images/products/apple-airpods-pro-3.jpg",
     "tags": [
       "통학",
       "업무",
       "노캔"
     ],
-    "price": 264320,
-    "priceCheckedAt": "2026-10-28",
+    "price": 276890,
+    "priceCheckedAt": "2026-11-03",
     "priceComparisonSite": "danawa",
     "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=97405013",
     "specs": [
@@ -160,53 +159,1229 @@
         "key": "wearType",
         "label": "착용 형태",
         "value": "커널형",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=97405013",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "anc",
         "label": "노이즈 캔슬링",
         "value": true,
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "batteryHoursAncOn",
         "label": "이어버드 재생 시간 (ANC 켬)",
         "value": 8,
-        "unit": "시간",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "maxBatteryHoursAncOn",
         "label": "케이스 포함 재생 시간 (ANC 켬)",
         "value": 24,
-        "unit": "시간",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
       },
       {
         "key": "weight",
         "label": "이어버드 무게 (한 쪽)",
         "value": 5.55,
-        "unit": "g",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
       },
       {
         "key": "waterResistance",
-        "label": "방수 등급",
+        "label": "방수 등급 (이어버드)",
         "value": "IP57",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03"
       },
       {
         "key": "bluetooth",
         "label": "블루투스",
         "value": "5.3",
-        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
-        "checkedAt": "2026-10-28"
+        "sourceUrl": "https://support.apple.com/en-au/125135",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "apple-airpods-4",
+    "brand": "Apple",
+    "name": "AirPods 4",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/apple-airpods-4.jpg",
+    "tags": [
+      "통학",
+      "업무"
+    ],
+    "price": 150090,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=65920016",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "세미오픈형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=65920016",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 5,
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 30,
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.3,
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://support.apple.com/en-ie/121203",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "sony-wf-c510",
+    "brand": "Sony",
+    "name": "WF-C510",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/sony-wf-c510.jpg",
+    "tags": [
+      "통학",
+      "업무"
+    ],
+    "price": 81880,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=65432375",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=65432375",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 11,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 22,
+        "sourceUrl": "https://www.sony.co.kr/headphones/products/wf-c510",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.6,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-c510/specifications",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "sony-wf-c710n",
+    "brand": "Sony",
+    "name": "WF-C710N",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/sony-wf-c710n.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 124200,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=83297033",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=83297033",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8.5,
+        "sourceUrl": "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 30,
+        "sourceUrl": "https://electronics.sony.com/audio/headphones/all-headphones/p/wfc710n-b",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.2,
+        "sourceUrl": "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.com.sg/electronics/support/wireless-headphones-bluetooth-headphones/wf-c710n/specifications",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "sony-linkbuds-fit",
+    "brand": "Sony",
+    "name": "LinkBuds Fit",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/sony-linkbuds-fit.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 229000,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=71505791",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=71505791",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5.5,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 21,
+        "sourceUrl": "https://electronics.sony.com/audio/headphones/all-headphones/p/wfls910n-b?locale=en_US",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.9,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-ls910n/specifications",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "sony-linkbuds-open",
+    "brand": "Sony",
+    "name": "LinkBuds Open",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/sony-linkbuds-open.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "운동"
+    ],
+    "price": 247480,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=71160086",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈이어형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=71160086",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 8,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 22,
+        "sourceUrl": "https://electronics.sony.com/audio/headphones/all-headphones/p/wfl910-b",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.1,
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.co.kr/electronics/support/wireless-headphones-bluetooth-headphones/wf-l910/specifications",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "samsung-galaxy-buds-fe",
+    "brand": "Samsung",
+    "name": "Galaxy Buds FE",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds-fe.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 190000,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=28531961",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=28531961",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "sourceUrl": "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 21,
+        "sourceUrl": "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.6,
+        "sourceUrl": "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX2",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=28531961",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2",
+        "sourceUrl": "https://www.samsung.com/uk/business/audio-sound/galaxy-buds/galaxy-buds-fe-white-sm-r400nzwaeua/",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "samsung-galaxy-buds3",
+    "brand": "Samsung",
+    "name": "Galaxy Buds3",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 160360,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=59541506",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "세미오픈형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=59541506",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5,
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.7,
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP57",
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.samsung.com/au/business/audio-sound/galaxy-buds/galaxy-buds3-white-sm-r530nzwaasa/",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "samsung-galaxy-buds3-fe",
+    "brand": "Samsung",
+    "name": "Galaxy Buds3 FE",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3-fe.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 129330,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=96987275",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=96987275",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5,
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.samsung.com/ca/business/audio-sound/galaxy-buds/galaxy-buds3-fe-gray-sm-r420nzaaxac/",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-p20i",
+    "brand": "Soundcore",
+    "name": "P20i A3949 (해외구매)",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-p20i.jpg",
+    "tags": [
+      "통학",
+      "업무"
+    ],
+    "price": 37480,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=53421806",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=53421806",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 10,
+        "sourceUrl": "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 30,
+        "sourceUrl": "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX5",
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "purchaseType",
+        "label": "판매 구성",
+        "value": "해외구매",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=53421806",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-p30i",
+    "brand": "Soundcore",
+    "name": "P30i A3959",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-p30i.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 32900,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=78716027",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=78716027",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 7,
+        "sourceUrl": "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 30,
+        "sourceUrl": "https://www.soundcore.com/blogs/earbuds/best-wireless-earbuds-under-50",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.soundcore.com/products/soundcore-p30i",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-p41i",
+    "brand": "Soundcore",
+    "name": "P41i A3937",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-p41i.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 69900,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=94086776",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=94086776",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://service.soundcore.com/product-description/a08J1000000YrzOIAS/p41i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "sourceUrl": "https://service.soundcore.com/article-description/soundcore-P41i-Earbuds-FAQ",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 160,
+        "sourceUrl": "https://service.soundcore.com/article-description/soundcore-P41i-Earbuds-FAQ",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX5",
+        "sourceUrl": "https://service.soundcore.com/product-description/a08J1000000YrzOIAS/p41i",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://service.soundcore.com/product-description/a08J1000000YrzOIAS/p41i",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-liberty-4-nc",
+    "brand": "Soundcore",
+    "name": "Liberty 4 NC",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-liberty-4-nc.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 96700,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=21726290",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=21726290",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.soundcore.com/products/liberty-4-nc-a3947z11",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "sourceUrl": "https://www.soundcore.com/collections/spatial-audio-earbuds",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 40,
+        "sourceUrl": "https://www.soundcore.com/collections/spatial-audio-earbuds",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.2,
+        "sourceUrl": "https://www.soundcore.com/products/liberty-4-nc-a3947z11",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.soundcore.com/products/liberty-4-nc-a3947z11",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.soundcore.com/products/liberty-4-nc-a3947z11",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-aerofit-2",
+    "brand": "Soundcore",
+    "name": "AeroFit 2 AI A3874X",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-aerofit-2.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "운동"
+    ],
+    "price": 158900,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=122624903",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈이어형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 10,
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 42,
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP55",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "earHook",
+        "label": "귀걸이형 고정 구조",
+        "value": true,
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=122624903",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "soundcore-c40i",
+    "brand": "Soundcore",
+    "name": "C40i A3331",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/soundcore-c40i.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "운동"
+    ],
+    "price": 54900,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=101633138",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈이어형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=101633138",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false,
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHours",
+        "label": "이어버드 재생 시간 (일반 재생)",
+        "value": 7,
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHours",
+        "label": "케이스 포함 재생 시간 (일반 재생)",
+        "value": 21,
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.8,
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IPX4",
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "fitStyle",
+        "label": "고정 방식",
+        "value": "이어클립",
+        "sourceUrl": "https://www.soundcore.com/pl/products/a3331-c40i-clip-earbuds",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "jbl-wave-buds-2",
+    "brand": "JBL",
+    "name": "Wave Buds 2",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/jbl-wave-buds-2.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 56140,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=75858776",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=75858776",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 32,
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=75858776",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.5,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3134606d/pdfs/LS_JBL_Wave%20Buds%202_QSG.pdf",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "jbl-tune-beam-2",
+    "brand": "JBL",
+    "name": "Tune Beam 2",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/jbl-tune-beam-2.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 89000,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=75859001",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=75859001",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 40,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.2,
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://kr.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw715a1f38/pdfs/JBL_TUNE_BEAM_2_Specsheet_EN.pdf",
+        "checkedAt": "2026-11-03"
+      }
+    ]
+  },
+  {
+    "id": "apple-airpods-4-anc",
+    "brand": "Apple",
+    "name": "AirPods 4 ANC",
+    "category": "earbuds",
+    "imageAsset": "assets/images/products/apple-airpods-4-anc.jpg",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 173950,
+    "priceCheckedAt": "2026-11-03",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=65919884",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "세미오픈형",
+        "sourceUrl": "https://prod.danawa.com/info/?pcode=65919884",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 4,
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03",
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.3,
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03",
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급 (이어버드)",
+        "value": "IP54",
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://support.apple.com/ko-kr/121204",
+        "checkedAt": "2026-11-03"
       }
     ]
   }

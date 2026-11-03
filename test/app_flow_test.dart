@@ -50,6 +50,9 @@ void main() {
     await tester.ensureVisible(find.text('5만원 미만'));
     await tester.tap(find.text('5만원 미만'));
     await tester.pump();
+    await tester.ensureVisible(find.text('귀걸이형'));
+    await tester.tap(find.text('귀걸이형'));
+    await tester.pump();
     await tester.tap(find.text('추천 보기'));
     await tester.pumpAndSettle();
     expect(find.text('조건에 맞는 제품이 없습니다.'), findsOneWidget);

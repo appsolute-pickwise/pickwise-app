@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/models/product_preferences.dart';
+import '../providers/product_provider.dart';
+import '../widgets/importance_controls.dart';
 import 'result_screen.dart';
 
 class LikingScreen extends StatefulWidget {
@@ -17,6 +20,34 @@ class _LikingScreenState extends State<LikingScreen> {
   final List<String> selectTag = [];
   final List<String> selectBudget = [];
   final List<String> selectWear = [];
+  Map<String, int> _weights = {};
+  bool _requireAnc = false;
+  double? _maxWeight;
+  bool _initialized = false;
+
+  ProductPreferences get _selection => ProductPreferences(
+    priorities: List.unmodifiable(selectTag),
+    budget: selectBudget.firstOrNull,
+    wearType: selectWear.firstOrNull,
+    requireAnc: _requireAnc,
+    maxWeightGrams: _maxWeight,
+    weights: Map.unmodifiable(_weights),
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_initialized) return;
+    _initialized = true;
+    final saved = context.read<ProductProvider?>()?.selectionPreferences;
+    if (saved == null) return;
+    selectTag.addAll(saved.priorities);
+    if (saved.budget != null) selectBudget.add(saved.budget!);
+    if (saved.wearType != null) selectWear.add(saved.wearType!);
+    _weights = Map.of(saved.weights);
+    _requireAnc = saved.requireAnc;
+    _maxWeight = saved.maxWeightGrams;
+  }
 
   static const Color green = Color(0xff477966);
   static const Color selectedBackground = Color(0xffE5F0E9);
@@ -158,6 +189,51 @@ class _LikingScreenState extends State<LikingScreen> {
                             .toList(),
                       ),
                       const SizedBox(height: 14),
+                      const Text(
+                        '반드시 지킬 조건',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SwitchListTile.adaptive(
+                        contentPadding: EdgeInsets.zero,
+                        title: const Text('ANC 필수'),
+                        subtitle: const Text('미지원·지원 여부 미확인 제품 제외'),
+                        value: _requireAnc,
+                        onChanged: (value) =>
+                            setState(() => _requireAnc = value),
+                      ),
+                      DropdownButtonFormField<double>(
+                        initialValue: _maxWeight ?? 0,
+                        decoration: const InputDecoration(
+                          labelText: '이어버드 한 쪽 무게',
+                        ),
+                        items: const [
+                          DropdownMenuItem(value: 0, child: Text('무게 제한 없음')),
+                          DropdownMenuItem(value: 5, child: Text('5g 이하')),
+                          DropdownMenuItem(value: 6, child: Text('6g 이하')),
+                          DropdownMenuItem(value: 8, child: Text('8g 이하')),
+                        ],
+                        onChanged: (value) => setState(
+                          () => _maxWeight = value == 0 ? null : value,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        '무게 제한을 정하면 무게 정보가 없는 제품도 제외해요.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF657181),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ImportanceControls(
+                        preferences: _selection,
+                        onChanged: (value) =>
+                            setState(() => _weights = Map.of(value.weights)),
+                      ),
+                      const SizedBox(height: 14),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
@@ -197,17 +273,24 @@ class _LikingScreenState extends State<LikingScreen> {
                 width: double.infinity,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => ResultScreen(
-                        preferences: ProductPreferences(
-                          priorities: List.unmodifiable(selectTag),
-                          budget: selectBudget.firstOrNull,
-                          wearType: selectWear.firstOrNull,
-                        ),
+                  onPressed: () async {
+                    final selection = _selection;
+                    context
+                        .read<ProductProvider?>()
+                        ?.updateSelectionPreferences(selection);
+                    await Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => ResultScreen(preferences: selection),
                       ),
-                    ),
-                  ),
+                    );
+                    if (!context.mounted) return;
+                    final updated = context
+                        .read<ProductProvider?>()
+                        ?.selectionPreferences;
+                    if (updated != null) {
+                      setState(() => _weights = Map.of(updated.weights));
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffdcebe3),
                     foregroundColor: const Color(0xff202623),
