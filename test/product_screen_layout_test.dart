@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product.dart';
 import 'package:pickwise/data/services/product_repository.dart';
+import 'package:pickwise/presentation/providers/product_provider.dart';
+import 'package:pickwise/presentation/screens/product_comparison_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pickwise/presentation/screens/price_check_screen.dart';
 import 'package:pickwise/presentation/screens/product_detail_screen.dart';
 
@@ -59,6 +63,31 @@ Future<void> _pumpScreen(
 }
 
 void main() {
+  for (final width in [320.0, 390.0]) {
+    for (final scale in [1.5, 2.0]) {
+      testWidgets('비교표 3개는 폭 $width·글자 $scale 배에서 넘치지 않는다', (tester) async {
+        SharedPreferences.setMockInitialValues({});
+        final provider = ProductProvider();
+        addTearDown(provider.dispose);
+        await tester.runAsync(provider.loadProducts);
+        for (final product in provider.products.take(3)) {
+          provider.addToComparison(product.id);
+        }
+        await _pumpScreen(
+          tester,
+          ChangeNotifierProvider.value(
+            value: provider,
+            child: const ProductComparisonScreen(),
+          ),
+          width: width,
+          textScale: scale,
+        );
+        expect(find.text('케이스 포함 · ANC 켬'), findsNWidgets(3));
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+
   testWidgets('운영 제품 20개의 상세와 가격 화면이 320px에서 정상 표시된다', (tester) async {
     final products = await tester.runAsync(ProductRepository().loadProducts);
     expect(products, hasLength(20));

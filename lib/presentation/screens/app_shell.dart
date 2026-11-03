@@ -21,6 +21,12 @@ class _AppShellState extends State<AppShell> {
   int _lastIndex = 0;
   int _lastSelectedCount = 0;
 
+  void _revealSearchNavigation() {
+    if (_lastIndex != 1) return;
+    _scrollDistance = 0;
+    if (!_navigationVisible) setState(() => _navigationVisible = true);
+  }
+
   bool _onScroll(ScrollUpdateNotification notification) {
     if (notification.depth != 0 ||
         notification.metrics.axis != Axis.vertical ||
@@ -71,10 +77,10 @@ class _AppShellState extends State<AppShell> {
           onNotification: _onScroll,
           child: IndexedStack(
             index: navigation.index,
-            children: const [
-              HomeScreen(),
-              SearchScreen(),
-              ProductComparisonScreen(showBottomNavigation: false),
+            children: [
+              const HomeScreen(),
+              SearchScreen(onNavigationReveal: _revealSearchNavigation),
+              const ProductComparisonScreen(showBottomNavigation: false),
             ],
           ),
         ),

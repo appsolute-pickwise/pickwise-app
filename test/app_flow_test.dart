@@ -70,7 +70,11 @@ void main() {
     final scrollable = find
         .descendant(
           of: find.byType(SearchScreen),
-          matching: find.byType(Scrollable),
+          matching: find.byWidgetPredicate(
+            (widget) =>
+                widget is Scrollable &&
+                widget.axisDirection == AxisDirection.down,
+          ),
         )
         .last;
     for (final product in provider.products.take(3)) {

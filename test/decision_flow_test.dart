@@ -41,6 +41,66 @@ Future<ProductProvider> _openApp(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('중요도를 여러 단계 드래그하면 시작 순위 대비 변화를 유지한다', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final provider = ProductProvider(
+      repository: _ProductsRepository([
+        fixtures.product('긴 배터리', battery: 10, weight: 8),
+        fixtures.product('가벼운 제품', battery: 5, weight: 3),
+      ]),
+    );
+    addTearDown(provider.dispose);
+    await provider.loadProducts();
+    await tester.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: provider,
+        child: const MaterialApp(
+          home: ResultScreen(
+            preferences: ProductPreferences(priorities: ['배터리', '무게']),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widgetList<ProductListTile>(find.byType(ProductListTile))
+          .first
+          .product
+          .name,
+      '가벼운 제품',
+    );
+    final slider = find.byKey(const ValueKey('weight-배터리'));
+    final left = tester.getTopLeft(slider).dx + 24;
+    final right = tester.getTopRight(slider).dx - 24;
+    final y = tester.getCenter(slider).dy;
+    final gesture = await tester.startGesture(Offset((left + right) / 2, y));
+    await gesture.moveTo(Offset(left + (right - left) * 0.75, y));
+    await tester.pumpAndSettle();
+    await gesture.moveTo(Offset(right, y));
+    await tester.pumpAndSettle();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widgetList<ProductListTile>(find.byType(ProductListTile))
+          .first
+          .product
+          .name,
+      '긴 배터리',
+    );
+    expect(find.textContaining('첫 후보가 가벼운 제품에서 긴 배터리'), findsOneWidget);
+    expect(find.text('↑ 1순위'), findsOneWidget);
+    expect(find.textContaining('3단계에서 5단계로 변경'), findsOneWidget);
+    final nextGesture = await tester.startGesture(Offset(right, y));
+    await nextGesture.moveTo(Offset((left + right) / 2, y));
+    await tester.pumpAndSettle();
+    await nextGesture.up();
+    await tester.pumpAndSettle();
+    expect(find.textContaining('첫 후보가 긴 배터리에서 가벼운 제품'), findsOneWidget);
+    expect(find.textContaining('5단계에서 3단계로 변경'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
   testWidgets('추천에서 바꾼 중요도는 기준 화면으로 돌아와도 유지된다', (tester) async {
     final provider = await _openApp(tester);
     await tester.tap(find.text('배터리'));

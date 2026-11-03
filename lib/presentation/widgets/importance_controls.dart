@@ -7,10 +7,14 @@ class ImportanceControls extends StatelessWidget {
     super.key,
     required this.preferences,
     required this.onChanged,
+    this.onChangeStart,
+    this.onChangeEnd,
   });
 
   final ProductPreferences preferences;
   final ValueChanged<ProductPreferences> onChanged;
+  final VoidCallback? onChangeStart;
+  final VoidCallback? onChangeEnd;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -40,6 +44,8 @@ class ImportanceControls extends StatelessWidget {
           label: '${preferences.weightFor(priority)}',
           semanticFormatterCallback: (value) =>
               '$priority 중요도 ${value.round()} / 5',
+          onChangeStart: (_) => onChangeStart?.call(),
+          onChangeEnd: (_) => onChangeEnd?.call(),
           onChanged: (value) => onChanged(
             preferences.withWeights({
               ...preferences.weights,

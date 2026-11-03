@@ -23,6 +23,38 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  testWidgets('가로 화면에서 키보드를 열어도 탐색 상단과 결과를 스크롤할 수 있다', (tester) async {
+    tester.view.physicalSize = const Size(844, 390);
+    tester.view.devicePixelRatio = 1;
+    tester.view.viewInsets = const FakeViewPadding(bottom: 200);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    addTearDown(tester.view.resetViewInsets);
+    final provider = ProductProvider();
+    addTearDown(provider.dispose);
+    await tester.runAsync(provider.loadProducts);
+    await tester.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: provider,
+        child: const MaterialApp(home: SearchScreen()),
+      ),
+    );
+    await tester.enterText(find.byType(TextField), 'Sony');
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    final scrollable = find.byWidgetPredicate(
+      (widget) =>
+          widget is Scrollable && widget.axisDirection == AxisDirection.down,
+    );
+    await tester.drag(scrollable, const Offset(0, -200));
+    await tester.pumpAndSettle();
+    expect(
+      tester.state<ScrollableState>(scrollable).position.pixels,
+      greaterThan(0),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('홈에서 데이터 로딩 실패 후 다시 불러올 수 있다', (tester) async {
     final provider = ProductProvider(repository: _RetryRepository());
     addTearDown(provider.dispose);

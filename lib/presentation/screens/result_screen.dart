@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/models/product_preferences.dart';
+import '../../data/models/product.dart';
 import '../providers/app_navigation_controller.dart';
 import '../providers/product_provider.dart';
 import '../widgets/pickwise_bottom_navigation.dart';
@@ -24,6 +25,8 @@ class _ResultScreenState extends State<ResultScreen> {
   late ProductPreferences _preferences;
   String? _changeExplanation;
   Map<String, int> _rankChanges = {};
+  ProductPreferences? _interactionStart;
+  List<Product>? _initialRanking;
 
   @override
   void initState() {
@@ -32,15 +35,17 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   void _updateImportance(ProductPreferences next, ProductProvider provider) {
-    final before = _preferences.recommend(provider.products);
+    final baseline = _interactionStart ?? _preferences;
+    final before = _initialRanking ?? baseline.recommend(provider.products);
     final after = next.recommend(provider.products);
     final changed = next.priorities.where(
       (key) => next.weightFor(key) != _preferences.weightFor(key),
     );
     if (changed.isEmpty) return;
     final key = changed.first;
-    final reason =
-        '$key 중요도를 ${_preferences.weightFor(key)}에서 ${next.weightFor(key)}로 변경했어요.';
+    final reason = baseline.weightFor(key) == next.weightFor(key)
+        ? '$key 중요도를 시작 값 ${next.weightFor(key)}단계로 되돌렸어요.'
+        : '$key 중요도를 ${baseline.weightFor(key)}단계에서 ${next.weightFor(key)}단계로 변경했어요.';
     final changes = <String, int>{};
     for (var index = 0; index < after.length; index++) {
       final previous = before.indexWhere((p) => p.id == after[index].id);
@@ -134,6 +139,14 @@ class _ResultScreenState extends State<ResultScreen> {
                 const SizedBox(height: 16),
                 ImportanceControls(
                   preferences: _preferences,
+                  onChangeStart: () {
+                    _interactionStart = _preferences;
+                    _initialRanking = _preferences.recommend(provider.products);
+                  },
+                  onChangeEnd: () {
+                    _interactionStart = null;
+                    _initialRanking = null;
+                  },
                   onChanged: (value) => _updateImportance(value, provider),
                 ),
                 if (_changeExplanation != null) ...[

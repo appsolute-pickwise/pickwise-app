@@ -27,11 +27,52 @@ Future<ProductProvider> _openApp(WidgetTester tester) async {
 Finder _searchList() => find
     .descendant(
       of: find.byType(SearchScreen),
-      matching: find.byType(Scrollable),
+      matching: find.byWidgetPredicate(
+        (widget) =>
+            widget is Scrollable && widget.axisDirection == AxisDirection.down,
+      ),
     )
     .last;
 
 void main() {
+  testWidgets('바가 숨은 뒤 빈 검색 결과로 바뀌면 키보드를 닫고 탭을 사용할 수 있다', (tester) async {
+    await _openApp(tester);
+    await tester.tap(find.text('탐색'));
+    await tester.pumpAndSettle();
+    await tester.drag(_searchList(), const Offset(0, -300));
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 0);
+    tester.state<ScrollableState>(_searchList()).position.jumpTo(0);
+    await tester.pumpAndSettle();
+    tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+    addTearDown(tester.view.resetViewInsets);
+    await tester.enterText(find.byType(TextField), '존재하지 않는 제품');
+    await tester.pumpAndSettle();
+    expect(find.text('찾는 상품이 없습니다.'), findsOneWidget);
+    expect(tester.getSize(find.byKey(_bar)).height, 0);
+    FocusManager.instance.primaryFocus?.unfocus();
+    tester.view.resetViewInsets();
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 64);
+    await tester.tap(find.text('비교'));
+    await tester.pumpAndSettle();
+    expect(find.text('제품 비교'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('스크롤할 수 없는 높이로 바뀌면 하단 바를 복원한다', (tester) async {
+    await _openApp(tester);
+    await tester.tap(find.text('탐색'));
+    await tester.pumpAndSettle();
+    await tester.drag(_searchList(), const Offset(0, -300));
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 0);
+    tester.view.physicalSize = const Size(390, 10000);
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 64);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('아래로 읽으면 바가 숨고 위로 스크롤하면 다시 나타난다', (tester) async {
     await _openApp(tester);
     await tester.tap(find.text('탐색'));

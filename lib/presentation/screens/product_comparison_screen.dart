@@ -561,17 +561,18 @@ class _SpecificationRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: detailValues == null ? 52 : 62,
+      constraints: BoxConstraints(minHeight: detailValues == null ? 52 : 62),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(5),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
       child: Row(
         children: [
           SizedBox(
             width: 82,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -602,13 +603,13 @@ class _SpecificationRow extends StatelessWidget {
                 child: detailValues == null
                     ? _CellValue(value: values[index], keyName: keyName)
                     : Column(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _CellValue(value: values[index], keyName: keyName),
                           const SizedBox(height: 2),
                           Text(
                             detailValues![index],
-                            maxLines: 2,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Color(0xFF8B95A1),
@@ -634,8 +635,6 @@ class _CellValue extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
     value,
-    maxLines: 1,
-    overflow: TextOverflow.ellipsis,
     textAlign: TextAlign.center,
     style: TextStyle(
       color: keyName == 'price'
