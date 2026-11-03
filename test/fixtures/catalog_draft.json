@@ -1,0 +1,1748 @@
+[
+  {
+    "id": "sony-wf-1000xm5",
+    "brand": "Sony",
+    "name": "WF-1000XM5",
+    "imageAsset": "assets/images/products/sony-wf-1000xm5.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 306490,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=27250154",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.9,
+        "unit": "g",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.sony.com/electronics/support/wireless-headphones-bluetooth-headphones/wf-1000xm5/specifications",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  },
+  {
+    "id": "samsung-galaxy-buds3-pro",
+    "brand": "Samsung",
+    "name": "Galaxy Buds3 Pro",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3-pro.jpg",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 218430,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=59537216",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 26,
+        "unit": "시간",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.4,
+        "unit": "g",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4",
+        "sourceUrl": "https://www.samsung.com/sec/buds/galaxy-buds/galaxy-buds3-pro/specs/",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  },
+  {
+    "id": "apple-airpods-pro-3",
+    "brand": "Apple",
+    "name": "AirPods Pro 3",
+    "imageAsset": "assets/images/products/apple-airpods-pro-3.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 264320,
+    "priceCheckedAt": "2026-10-28",
+    "priceComparisonSite": "danawa",
+    "priceComparisonUrl": "https://prod.danawa.com/info/?pcode=97405013",
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true,
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.55,
+        "unit": "g",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3",
+        "sourceUrl": "https://www.apple.com/airpods-pro/specs/",
+        "checkedAt": "2026-10-28"
+      }
+    ]
+  },
+  {
+    "id": "apple-airpods-4",
+    "brand": "Apple",
+    "name": "AirPods 4",
+    "imageAsset": "assets/images/products/apple-airpods-4.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무"
+    ],
+    "price": 291000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.7,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP55"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "apple-airpods-4-anc",
+    "brand": "Apple",
+    "name": "AirPods 4 ANC",
+    "imageAsset": "assets/images/products/apple-airpods-4-anc.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "노캔"
+    ],
+    "price": 244000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 28,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.6,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "apple-airpods-pro-2",
+    "brand": "Apple",
+    "name": "AirPods Pro 2",
+    "imageAsset": "assets/images/products/apple-airpods-pro-2.png",
+    "category": "earbuds",
+    "tags": [
+      "업무",
+      "노캔"
+    ],
+    "price": 165000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 9,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.1,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "samsung-galaxy-buds3",
+    "brand": "Samsung",
+    "name": "Galaxy Buds3",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds3.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 237000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "오픈형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 28,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.7,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "samsung-galaxy-buds2-pro",
+    "brand": "Samsung",
+    "name": "Galaxy Buds2 Pro",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds2-pro.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 151000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 32,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.1,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP55"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "samsung-galaxy-buds-fe",
+    "brand": "Samsung",
+    "name": "Galaxy Buds FE",
+    "imageAsset": "assets/images/products/samsung-galaxy-buds-fe.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "노캔"
+    ],
+    "price": 256000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.8,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sony-wf-1000xm4",
+    "brand": "Sony",
+    "name": "WF-1000XM4",
+    "imageAsset": "assets/images/products/sony-wf-1000xm4.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 265000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.1,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sony-wf-c700n",
+    "brand": "Sony",
+    "name": "WF-C700N",
+    "imageAsset": "assets/images/products/sony-wf-c700n.png",
+    "category": "earbuds",
+    "tags": [
+      "업무",
+      "노캔"
+    ],
+    "price": 209000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 9,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 32,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.7,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sony-wf-c510",
+    "brand": "Sony",
+    "name": "WF-C510",
+    "imageAsset": "assets/images/products/sony-wf-c510.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무"
+    ],
+    "price": 136000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.3,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sony-linkbuds-s",
+    "brand": "Sony",
+    "name": "LinkBuds S",
+    "imageAsset": "assets/images/products/sony-linkbuds-s.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "노캔"
+    ],
+    "price": 289000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 32,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.3,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "bose-quietcomfort-ultra-earbuds",
+    "brand": "Bose",
+    "name": "QuietComfort Ultra Earbuds",
+    "imageAsset": "assets/images/products/bose-quietcomfort-ultra-earbuds.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 91000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 36,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.9,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP55"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "bose-quietcomfort-earbuds",
+    "brand": "Bose",
+    "name": "QuietComfort Earbuds",
+    "imageAsset": "assets/images/products/bose-quietcomfort-earbuds.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 246000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 28,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.5,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "jbl-tour-pro-3",
+    "brand": "JBL",
+    "name": "Tour Pro 3",
+    "imageAsset": "assets/images/products/jbl-tour-pro-3.png",
+    "category": "earbuds",
+    "tags": [
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 235000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 7,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 32,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.8,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "jbl-live-beam-3",
+    "brand": "JBL",
+    "name": "Live Beam 3",
+    "imageAsset": "assets/images/products/jbl-live-beam-3.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "노캔"
+    ],
+    "price": 244000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.7,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "jbl-tune-buds",
+    "brand": "JBL",
+    "name": "Tune Buds",
+    "imageAsset": "assets/images/products/jbl-tune-buds.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 267000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 5,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 30,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.8,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "jabra-elite-8-active",
+    "brand": "Jabra",
+    "name": "Elite 8 Active",
+    "imageAsset": "assets/images/products/jabra-elite-8-active.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 161000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.1,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "jabra-elite-10",
+    "brand": "Jabra",
+    "name": "Elite 10",
+    "imageAsset": "assets/images/products/jabra-elite-10.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 190000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 8,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 28,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.9,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sennheiser-momentum-true-wireless-4",
+    "brand": "Sennheiser",
+    "name": "Momentum True Wireless 4",
+    "imageAsset": "assets/images/products/sennheiser-momentum-true-wireless-4.png",
+    "category": "earbuds",
+    "tags": [
+      "노캔"
+    ],
+    "price": 284000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 7,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.2,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "sennheiser-accentum-true-wireless",
+    "brand": "Sennheiser",
+    "name": "Accentum True Wireless",
+    "imageAsset": "assets/images/products/sennheiser-accentum-true-wireless.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 295000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.5,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP55"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "beats-fit-pro",
+    "brand": "Beats",
+    "name": "Fit Pro",
+    "imageAsset": "assets/images/products/beats-fit-pro.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 145000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.8,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "beats-studio-buds-plus",
+    "brand": "Beats",
+    "name": "Studio Buds Plus",
+    "imageAsset": "assets/images/products/beats-studio-buds-plus.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 223000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 6,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 24,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.4,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.2"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "beats-solo-buds",
+    "brand": "Beats",
+    "name": "Solo Buds",
+    "imageAsset": "assets/images/products/beats-solo-buds.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동"
+    ],
+    "price": 108000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": false
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": null,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.6,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "nothing-ear",
+    "brand": "Nothing",
+    "name": "Ear",
+    "imageAsset": "assets/images/products/nothing-ear.png",
+    "category": "earbuds",
+    "tags": [
+      "업무",
+      "노캔"
+    ],
+    "price": 192000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.8,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "nothing-ear-a",
+    "brand": "Nothing",
+    "name": "Ear a",
+    "imageAsset": "assets/images/products/nothing-ear-a.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 230000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 7,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 36,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 6.9,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP54"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "anker-soundcore-liberty-4-nc",
+    "brand": "Anker",
+    "name": "Soundcore Liberty 4 NC",
+    "imageAsset": "assets/images/products/anker-soundcore-liberty-4-nc.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
+    "price": 198000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 9,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP57"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "anker-soundcore-sport-x20",
+    "brand": "Anker",
+    "name": "Soundcore Sport X20",
+    "imageAsset": "assets/images/products/anker-soundcore-sport-x20.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "노캔"
+    ],
+    "price": 158000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 28,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 5.7,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IPX4"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.4"
+      }
+    ],
+    "isDummyData": true
+  },
+  {
+    "id": "google-pixel-buds-pro-2",
+    "brand": "Google",
+    "name": "Pixel Buds Pro 2",
+    "imageAsset": "assets/images/products/google-pixel-buds-pro-2.png",
+    "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
+    "price": 50000,
+    "priceCheckedAt": null,
+    "priceComparisonSite": null,
+    "priceComparisonUrl": null,
+    "specs": [
+      {
+        "key": "wearType",
+        "label": "착용 형태",
+        "value": "커널형"
+      },
+      {
+        "key": "anc",
+        "label": "노이즈 캔슬링",
+        "value": true
+      },
+      {
+        "key": "batteryHoursAncOn",
+        "label": "이어버드 재생 시간 (ANC 켬)",
+        "value": 10,
+        "unit": "시간"
+      },
+      {
+        "key": "maxBatteryHoursAncOn",
+        "label": "케이스 포함 재생 시간 (ANC 켬)",
+        "value": 20,
+        "unit": "시간"
+      },
+      {
+        "key": "weight",
+        "label": "이어버드 무게 (한 쪽)",
+        "value": 4.6,
+        "unit": "g"
+      },
+      {
+        "key": "waterResistance",
+        "label": "방수 등급",
+        "value": "IP55"
+      },
+      {
+        "key": "bluetooth",
+        "label": "블루투스",
+        "value": "5.3"
+      }
+    ],
+    "isDummyData": true
+  }
+]

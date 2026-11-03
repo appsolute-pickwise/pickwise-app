@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/models/product.dart';
 import '../providers/product_provider.dart';
+import '../providers/app_navigation_controller.dart';
 import '../widgets/pickwise_bottom_navigation.dart';
 import '../widgets/product_artwork.dart';
 import '../widgets/product_formatters.dart';
@@ -11,7 +12,9 @@ import 'price_check_screen.dart';
 import 'product_detail_screen.dart';
 
 class ProductComparisonScreen extends StatelessWidget {
-  const ProductComparisonScreen({super.key});
+  const ProductComparisonScreen({super.key, this.showBottomNavigation = true});
+
+  final bool showBottomNavigation;
 
   static const _ink = Color(0xFF191F28);
   static const _muted = Color(0xFF657181);
@@ -37,17 +40,21 @@ class ProductComparisonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-          },
-          icon: SvgPicture.asset('assets/images/figma/back.svg'),
-        ),
+        leading: !showBottomNavigation
+            ? null
+            : IconButton(
+                onPressed: () {
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
+                },
+                icon: SvgPicture.asset('assets/images/figma/back.svg'),
+              ),
         title: const Text('제품 비교'),
       ),
-      bottomNavigationBar: const PickWiseBottomNavigation(
-        selectedTab: PickWiseTab.compare,
-      ),
+      bottomNavigationBar: !showBottomNavigation
+          ? null
+          : const PickWiseBottomNavigation(selectedTab: PickWiseTab.compare),
       body: Consumer<ProductProvider>(
         builder: (context, provider, _) {
           if (provider.isLoading) {
@@ -71,7 +78,19 @@ class ProductComparisonScreen extends StatelessWidget {
 
           final products = provider.selectedProducts;
           if (products.isEmpty) {
-            return const Center(child: Text('비교할 제품이 없습니다.'));
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('비교할 제품이 없습니다.'),
+                  TextButton(
+                    onPressed: () =>
+                        context.read<AppNavigationController?>()?.select(1),
+                    child: const Text('제품 찾아보기'),
+                  ),
+                ],
+              ),
+            );
           }
 
           return Column(
@@ -409,6 +428,11 @@ class _ProductHeader extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        TextButton(
+          onPressed: () =>
+              context.read<ProductProvider>().removeFromComparison(product.id),
+          child: const Text('빼기', style: TextStyle(fontSize: 10)),
         ),
       ],
     );

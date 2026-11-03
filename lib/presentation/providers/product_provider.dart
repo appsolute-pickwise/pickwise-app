@@ -58,15 +58,6 @@ class ProductProvider extends ChangeNotifier {
         _restoreSelection(savedIds);
       } else {
         _restoreSelection(List<String>.of(_selectedProductIds));
-        if (_selectedProductIds.isEmpty && _products.isNotEmpty) {
-          final category = _products.first.category;
-          _selectedProductIds.addAll(
-            _products
-                .where((product) => product.category == category)
-                .take(maxComparisonProducts)
-                .map((product) => product.id),
-          );
-        }
       }
     } catch (error, stackTrace) {
       _loadError = error;

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/app_navigation_controller.dart';
 
 enum PickWiseTab { home, explore, compare }
 
@@ -13,6 +16,15 @@ class PickWiseBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigation = context.watch<AppNavigationController?>();
+    final activeTab = navigation == null
+        ? selectedTab
+        : PickWiseTab.values[navigation.index];
+    void select(PickWiseTab tab) {
+      navigation?.select(tab.index);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+
     return Container(
       height: 76,
       decoration: const BoxDecoration(
@@ -23,19 +35,26 @@ class PickWiseBottomNavigation extends StatelessWidget {
         children: [
           _NavigationItem(
             label: '홈',
-            selected: selectedTab == PickWiseTab.home,
+            selected: activeTab == PickWiseTab.home,
+            onTap: navigation == null ? null : () => select(PickWiseTab.home),
             icon: SvgPicture.asset('assets/images/figma/home.svg'),
           ),
           _NavigationItem(
             label: '탐색',
-            selected: selectedTab == PickWiseTab.explore,
+            selected: activeTab == PickWiseTab.explore,
+            onTap: navigation == null
+                ? null
+                : () => select(PickWiseTab.explore),
             icon: SvgPicture.asset('assets/images/figma/search.svg'),
           ),
           _NavigationItem(
             label: '비교',
-            selected: selectedTab == PickWiseTab.compare,
+            selected: activeTab == PickWiseTab.compare,
+            onTap: navigation == null
+                ? null
+                : () => select(PickWiseTab.compare),
             icon: _CompareIcon(
-              color: selectedTab == PickWiseTab.compare ? _green : _muted,
+              color: activeTab == PickWiseTab.compare ? _green : _muted,
             ),
           ),
         ],
@@ -49,11 +68,13 @@ class _NavigationItem extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.icon,
+    this.onTap,
   });
 
   final String label;
   final bool selected;
   final Widget icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -62,23 +83,26 @@ class _NavigationItem extends StatelessWidget {
         : PickWiseBottomNavigation._muted;
 
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 20, height: 20, child: Center(child: icon)),
-            const SizedBox(height: 3),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 10,
-                height: 1.4,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 20, height: 20, child: Center(child: icon)),
+              const SizedBox(height: 3),
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  height: 1.4,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

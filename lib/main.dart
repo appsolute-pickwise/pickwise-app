@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'data/services/product_repository.dart';
 import 'presentation/providers/product_provider.dart';
-import 'presentation/screens/product_comparison_screen.dart';
+import 'presentation/providers/app_navigation_controller.dart';
+import 'presentation/screens/app_shell.dart';
 
 void main() {
   runApp(
@@ -20,27 +21,30 @@ class PickWiseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PickWise',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF165A4B),
-          surface: Colors.white,
-        ),
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Color(0xFF191F28),
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          titleTextStyle: TextStyle(
-            color: Color(0xFF191F28),
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+    return ChangeNotifierProvider(
+      create: (_) => AppNavigationController(),
+      child: MaterialApp(
+        title: 'PickWise',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF165A4B),
+            surface: Colors.white,
+          ),
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Color(0xFF191F28),
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            titleTextStyle: TextStyle(
+              color: Color(0xFF191F28),
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
+        home: const AppShell(),
       ),
-      home: const ProductComparisonScreen(),
     );
   }
 }

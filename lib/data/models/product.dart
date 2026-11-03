@@ -23,6 +23,7 @@ class Product {
     required this.priceComparisonUrl,
     required this.specs,
     this.imageAsset,
+    this.tags = const [],
   });
 
   final String id;
@@ -35,6 +36,7 @@ class Product {
   final Uri priceComparisonUrl;
   final String? imageAsset;
   final List<ProductSpecification> specs;
+  final List<String> tags;
 
   factory Product.fromJson(Map<String, dynamic> json) {
     final rawSpecs = json['specs'];
@@ -54,6 +56,9 @@ class Product {
       ),
       priceComparisonUrl: Uri.parse(json['priceComparisonUrl'] as String),
       imageAsset: json['imageAsset'] as String?,
+      tags: List<String>.unmodifiable(
+        (json['tags'] as List? ?? const []).cast<String>(),
+      ),
       specs: List<ProductSpecification>.unmodifiable(
         rawSpecs.map(
           (spec) => ProductSpecification.fromJson(

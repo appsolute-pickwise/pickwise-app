@@ -5,6 +5,12 @@
     "name": "WF-1000XM5",
     "imageAsset": "assets/images/products/sony-wf-1000xm5.png",
     "category": "earbuds",
+    "tags": [
+      "통학",
+      "운동",
+      "업무",
+      "노캔"
+    ],
     "price": 306490,
     "priceCheckedAt": "2026-10-28",
     "priceComparisonSite": "danawa",
@@ -70,6 +76,11 @@
     "name": "Galaxy Buds3 Pro",
     "imageAsset": "assets/images/products/samsung-galaxy-buds3-pro.jpg",
     "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
     "price": 218430,
     "priceCheckedAt": "2026-10-28",
     "priceComparisonSite": "danawa",
@@ -135,6 +146,11 @@
     "name": "AirPods Pro 3",
     "imageAsset": "assets/images/products/apple-airpods-pro-3.png",
     "category": "earbuds",
+    "tags": [
+      "통학",
+      "업무",
+      "노캔"
+    ],
     "price": 264320,
     "priceCheckedAt": "2026-10-28",
     "priceComparisonSite": "danawa",
