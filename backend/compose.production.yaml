@@ -1,0 +1,67 @@
+name: pickwise-production
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: '3'
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      MYSQL_DATABASE: pickwise
+      MYSQL_USER: pickwise
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets: [db_password, db_root_password]
+    volumes: ['production-mysql:/var/lib/mysql']
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD=$$(cat /run/secrets/db_password) mysql -u pickwise -e "SELECT 1" pickwise']
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    networks: [database]
+  api:
+    build: .
+    restart: unless-stopped
+    logging: *logging
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    pids_limit: 256
+    mem_limit: 768m
+    environment:
+      SPRING_CONFIG_IMPORT: configtree:/run/secrets/
+      PICKWISE_DB_URL: jdbc:mysql://mysql:3306/pickwise?connectionTimeZone=UTC
+      PICKWISE_DB_USER: pickwise
+      PICKWISE_TRUST_PROXY: 'true'
+    secrets:
+      - source: db_password
+        target: PICKWISE_DB_PASSWORD
+    depends_on:
+      mysql: {condition: service_healthy}
+    networks: [database, edge]
+  proxy:
+    image: nginx:1.28-alpine
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      PICKWISE_DOMAIN: ${PICKWISE_DOMAIN:?Set PICKWISE_DOMAIN}
+    ports: ['80:80', '443:443']
+    volumes:
+      - ./deploy/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./deploy/tls:/etc/nginx/tls:ro
+    depends_on: [api]
+    networks: [edge]
+secrets:
+  db_password:
+    file: ./deploy/secrets/db_password
+  db_root_password:
+    file: ./deploy/secrets/db_root_password
+volumes:
+  production-mysql:
+networks:
+  database: {internal: true}
+  edge:
