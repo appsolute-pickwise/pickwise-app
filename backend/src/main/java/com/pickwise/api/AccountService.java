@@ -59,11 +59,13 @@ public class AccountService {
     }
     private Map<String,String> issue(String owner, Instant refreshExpiry) {
         String access=randomToken(), refresh=randomToken();
-        Instant expiry=Instant.now().plus(15, ChronoUnit.MINUTES);
+        // MySQL TIMESTAMP(6)과 응답의 만료 시각 정밀도를 일치시킨다.
+        Instant expiry=Instant.now().plus(15, ChronoUnit.MINUTES).truncatedTo(ChronoUnit.MICROS);
+        Instant refreshDeadline=refreshExpiry.truncatedTo(ChronoUnit.MICROS);
         jdbc.update("INSERT INTO auth_sessions(token_hash,user_id,expires_at,refresh_hash,refresh_expires_at) VALUES (?,?,?,?,?)",
-                digest(access),owner,Timestamp.from(expiry),digest(refresh),Timestamp.from(refreshExpiry));
+                digest(access),owner,Timestamp.from(expiry),digest(refresh),Timestamp.from(refreshDeadline));
         return Map.of("token",access,"accessToken",access,"refreshToken",refresh,
-                "expiresAt",expiry.toString(),"refreshExpiresAt",refreshExpiry.toString());
+                "expiresAt",expiry.toString(),"refreshExpiresAt",refreshDeadline.toString());
     }
     @Transactional
     public Map<String,String> refresh(String token) {

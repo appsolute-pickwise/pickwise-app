@@ -2,6 +2,8 @@ package com.pickwise.api;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,20 @@ class PersonalizationIntegrationTest {
         return mapper.readTree(response.getResponse().getContentAsString());
     }
     String refresh(JsonNode session) {return "{\"refreshToken\":\""+session.path("refreshToken").asText()+"\"}";}
+    void assertStoredExpiry(JsonNode session) {
+        var stored=jdbc.queryForMap("SELECT expires_at,refresh_expires_at FROM auth_sessions WHERE token_hash=SHA2(?,256)",session.path("accessToken").asText());
+        assertThat(Instant.parse(session.path("expiresAt").asText()))
+                .isEqualTo(((Timestamp)stored.get("expires_at")).toInstant());
+        assertThat(Instant.parse(session.path("refreshExpiresAt").asText()))
+                .isEqualTo(((Timestamp)stored.get("refresh_expires_at")).toInstant());
+    }
     @Test void rotatesRefreshOnceAndRevokesOnLogout() throws Exception {
         var old=account();
+        assertStoredExpiry(old);
         var response=mvc.perform(post("/api/v1/auth/refresh").contentType("application/json").content(refresh(old)))
                 .andExpect(status().isOk()).andReturn();
         var next=mapper.readTree(response.getResponse().getContentAsString());
+        assertStoredExpiry(next);
         assertThat(next.path("refreshToken").asText()).isNotEqualTo(old.path("refreshToken").asText());
         assertThat(next.path("refreshExpiresAt").asText()).isEqualTo(old.path("refreshExpiresAt").asText());
         mvc.perform(post("/api/v1/auth/refresh").contentType("application/json").content(refresh(old))).andExpect(status().isUnauthorized());
