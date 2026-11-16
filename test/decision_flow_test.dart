@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product.dart';
@@ -27,12 +28,15 @@ Future<ProductProvider> _openApp(WidgetTester tester) async {
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   SharedPreferences.setMockInitialValues({});
-  final provider = ProductProvider();
+  final provider = ProductProvider(repository: AssetProductRepository());
   addTearDown(provider.dispose);
   await tester.runAsync(provider.loadProducts);
+  FlutterSecureStorage.setMockInitialValues({});
   await tester.pumpWidget(
     ChangeNotifierProvider.value(value: provider, child: const PickWiseApp()),
   );
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('로그인 없이 둘러보기'));
   await tester.pumpAndSettle();
   await tester.ensureVisible(find.text('기준 선택하기 →'));
   await tester.tap(find.text('기준 선택하기 →'));

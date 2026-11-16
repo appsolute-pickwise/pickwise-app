@@ -1,3 +1,5 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pickwise/data/services/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/main.dart';
@@ -14,12 +16,15 @@ Future<ProductProvider> _openApp(WidgetTester tester) async {
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   SharedPreferences.setMockInitialValues({});
-  final provider = ProductProvider();
+  final provider = ProductProvider(repository: AssetProductRepository());
   addTearDown(provider.dispose);
   await tester.runAsync(provider.loadProducts);
+  FlutterSecureStorage.setMockInitialValues({});
   await tester.pumpWidget(
     ChangeNotifierProvider.value(value: provider, child: const PickWiseApp()),
   );
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('로그인 없이 둘러보기'));
   await tester.pumpAndSettle();
   return provider;
 }
@@ -35,77 +40,67 @@ Finder _searchList() => find
     .last;
 
 void main() {
-  testWidgets('바가 숨은 뒤 빈 검색 결과로 바뀌면 키보드를 닫고 탭을 사용할 수 있다', (tester) async {
+  testWidgets('아래·위 스크롤에도 바는 고정되고 구분선만 반응한다', (tester) async {
+    await _openApp(tester);
+    await tester.tap(find.text('탐색'));
+    await tester.pumpAndSettle();
+    final before = tester.getRect(find.byKey(_bar));
+    BorderStyle border() =>
+        ((tester
+                            .widget<AnimatedContainer>(
+                              find.byKey(
+                                const ValueKey('bottom-navigation-surface'),
+                              ),
+                            )
+                            .foregroundDecoration!
+                        as BoxDecoration)
+                    .border!
+                as Border)
+            .top
+            .style;
+    expect(border(), BorderStyle.none);
+    await tester.drag(_searchList(), const Offset(0, -300));
+    await tester.pumpAndSettle();
+    expect(tester.getRect(find.byKey(_bar)), before);
+    expect(border(), BorderStyle.solid);
+    tester.state<ScrollableState>(_searchList()).position.jumpTo(0);
+    await tester.pumpAndSettle();
+    expect(border(), BorderStyle.none);
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
+  });
+  testWidgets('빈 검색 결과와 화면 크기 변경에도 탭 이동을 유지한다', (tester) async {
     await _openApp(tester);
     await tester.tap(find.text('탐색'));
     await tester.pumpAndSettle();
     await tester.drag(_searchList(), const Offset(0, -300));
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 0);
     tester.state<ScrollableState>(_searchList()).position.jumpTo(0);
     await tester.pumpAndSettle();
-    tester.view.viewInsets = const FakeViewPadding(bottom: 300);
-    addTearDown(tester.view.resetViewInsets);
     await tester.enterText(find.byType(TextField), '존재하지 않는 제품');
+    FocusManager.instance.primaryFocus?.unfocus();
     await tester.pumpAndSettle();
     expect(find.text('찾는 상품이 없습니다.'), findsOneWidget);
-    expect(tester.getSize(find.byKey(_bar)).height, 0);
-    FocusManager.instance.primaryFocus?.unfocus();
-    tester.view.resetViewInsets();
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
+    tester.view.physicalSize = const Size(390, 10000);
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
     await tester.tap(find.text('비교'));
     await tester.pumpAndSettle();
     expect(find.text('제품 비교'), findsOneWidget);
-    expect(tester.takeException(), isNull);
   });
-
-  testWidgets('스크롤할 수 없는 높이로 바뀌면 하단 바를 복원한다', (tester) async {
-    await _openApp(tester);
-    await tester.tap(find.text('탐색'));
-    await tester.pumpAndSettle();
-    await tester.drag(_searchList(), const Offset(0, -300));
-    await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 0);
-    tester.view.physicalSize = const Size(390, 10000);
-    await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets('아래로 읽으면 바가 숨고 위로 스크롤하면 다시 나타난다', (tester) async {
-    await _openApp(tester);
-    await tester.tap(find.text('탐색'));
-    await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
-    await tester.drag(_searchList(), const Offset(0, -300));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 80));
-    expect(tester.getSize(find.byKey(_bar)).height, inExclusiveRange(0, 64));
-    await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 0);
-    await tester.drag(_searchList(), const Offset(0, 100));
-    await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets('바가 숨은 상태에서 제품을 담으면 비교 탭을 다시 사용할 수 있다', (tester) async {
+  testWidgets('스크롤한 위치에서 제품을 담고 바로 비교 탭으로 이동한다', (tester) async {
     final provider = await _openApp(tester);
     await tester.tap(find.text('탐색'));
     await tester.pumpAndSettle();
     await tester.drag(_searchList(), const Offset(0, -300));
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 0);
     provider.addToComparison(provider.products.first.id);
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
     await tester.tap(find.text('비교'));
     await tester.pumpAndSettle();
     expect(find.text('제품 비교'), findsOneWidget);
-    expect(tester.takeException(), isNull);
   });
-
   testWidgets('탭 전환 뒤에도 검색어와 목록 위치가 유지된다', (tester) async {
     await _openApp(tester);
     await tester.tap(find.text('탐색'));
@@ -113,8 +108,7 @@ void main() {
     await tester.enterText(find.byType(TextField), 'Sony');
     FocusManager.instance.primaryFocus?.unfocus();
     await tester.pumpAndSettle();
-    final position = tester.state<ScrollableState>(_searchList()).position;
-    position.jumpTo(80);
+    tester.state<ScrollableState>(_searchList()).position.jumpTo(80);
     await tester.pumpAndSettle();
     await tester.tap(find.text('비교'));
     await tester.pumpAndSettle();
@@ -129,27 +123,27 @@ void main() {
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
       1,
     );
-    expect(tester.takeException(), isNull);
   });
-
-  testWidgets('가로 제품 스크롤은 하단 바를 숨기지 않는다', (tester) async {
+  testWidgets('가로 제품 스크롤은 바의 위치와 크기를 바꾸지 않는다', (tester) async {
     await _openApp(tester);
-    final horizontalList = find.byWidgetPredicate(
-      (widget) =>
-          widget is ListView && widget.scrollDirection == Axis.horizontal,
-    );
     final horizontal = find
-        .descendant(of: horizontalList, matching: find.byType(Scrollable))
+        .descendant(
+          of: find.byKey(const ValueKey('home-product-carousel')),
+          matching: find.byType(Scrollable),
+        )
         .first;
     await tester.ensureVisible(horizontal);
     await tester.pumpAndSettle();
+    final before = tester.getRect(find.byKey(_bar));
     await tester.drag(horizontal, const Offset(-250, 0));
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
-    expect(tester.takeException(), isNull);
+    expect(
+      tester.state<ScrollableState>(horizontal).position.pixels,
+      greaterThan(0),
+    );
+    expect(tester.getRect(find.byKey(_bar)), before);
   });
-
-  testWidgets('검색 키보드를 열면 바가 숨고 닫으면 복원된다', (tester) async {
+  testWidgets('키보드 입력 중에만 바를 숨기고 닫으면 같은 크기로 돌아온다', (tester) async {
     await _openApp(tester);
     await tester.tap(find.text('탐색'));
     await tester.pumpAndSettle();
@@ -157,13 +151,12 @@ void main() {
     addTearDown(tester.view.resetViewInsets);
     await tester.pumpAndSettle();
     expect(tester.getSize(find.byKey(_bar)).height, 0);
+    expect(find.byType(NavigationDestination), findsNothing);
     tester.view.resetViewInsets();
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
-    expect(tester.takeException(), isNull);
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
   });
-
-  testWidgets('접근성 탐색에서는 스크롤해도 바를 유지하고 모션 감소를 반영한다', (tester) async {
+  testWidgets('동작 줄이기를 켜면 표시 애니메이션을 생략한다', (tester) async {
     tester.platformDispatcher.accessibilityFeaturesTestValue =
         const FakeAccessibilityFeatures(
           accessibleNavigation: true,
@@ -175,13 +168,66 @@ void main() {
     await tester.pumpAndSettle();
     await tester.drag(_searchList(), const Offset(0, -300));
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_bar)).height, 64);
+    expect(tester.getSize(find.byKey(_bar)).height, 56);
     expect(
       tester
           .widget<NavigationBar>(find.byType(NavigationBar))
           .animationDuration,
       Duration.zero,
     );
+  });
+  for (final inset in [0.0, 16.0, 24.0, 34.0]) {
+    testWidgets('안전영역 $inset px는 하단에 한 번만 적용한다', (tester) async {
+      tester.view.padding = FakeViewPadding(bottom: inset);
+      tester.view.viewPadding = FakeViewPadding(bottom: inset);
+      addTearDown(tester.view.resetPadding);
+      addTearDown(tester.view.resetViewPadding);
+      await _openApp(tester);
+      final bar = tester.getRect(find.byKey(_bar));
+      expect(bar.height, 56 + inset);
+      expect(bar.bottom, 844);
+      for (final element in find.byType(NavigationDestination).evaluate()) {
+        final rect = tester.getRect(find.byWidget(element.widget));
+        expect(rect.height, greaterThanOrEqualTo(48));
+        expect(rect.bottom, lessThanOrEqualTo(844 - inset));
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
+  testWidgets('작은 폭과 큰 글자에서는 높이를 늘려 탭을 읽을 수 있다', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await _openApp(tester);
+    tester.view.physicalSize = const Size(320, 844);
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 67);
+    expect(find.byType(NavigationDestination), findsNWidgets(4));
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('가로 화면에서는 좌우 안전영역을 지키며 네 탭을 유지한다', (tester) async {
+    await _openApp(tester);
+    tester.view.physicalSize = const Size(844, 390);
+    tester.view.padding = const FakeViewPadding(
+      left: 44,
+      right: 44,
+      bottom: 21,
+    );
+    tester.view.viewPadding = const FakeViewPadding(
+      left: 44,
+      right: 44,
+      bottom: 21,
+    );
+    addTearDown(tester.view.resetPadding);
+    addTearDown(tester.view.resetViewPadding);
+    await tester.pumpAndSettle();
+    expect(tester.getSize(find.byKey(_bar)).height, 77);
+    final first = tester.getRect(find.byType(NavigationDestination).first),
+        last = tester.getRect(find.byType(NavigationDestination).last);
+    expect(first.left, greaterThanOrEqualTo(44));
+    expect(last.right, lessThanOrEqualTo(800));
+    await tester.tap(find.text('마이'));
+    await tester.pumpAndSettle();
+    expect(find.text('마이페이지'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

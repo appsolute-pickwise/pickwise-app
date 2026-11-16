@@ -1,3 +1,5 @@
+import '../widgets/catalog_receipt.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,9 +48,8 @@ class PriceCheckScreen extends StatelessWidget {
         ),
         title: const Text('가격 확인하기'),
       ),
-      bottomNavigationBar: const SafeArea(
-        top: false,
-        child: PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
+      bottomNavigationBar: const PickWiseBottomNavigation(
+        selectedTab: PickWiseTab.explore,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 14, 24, 24),
@@ -121,6 +122,11 @@ class PriceCheckScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            const CatalogReceipt(),
+            const Text(
+              '표시 가격은 수동 확인 가격이에요. 최신 가격·배송비는 판매 페이지에서 확인해주세요.',
+              style: TextStyle(color: _muted, fontSize: 12),
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

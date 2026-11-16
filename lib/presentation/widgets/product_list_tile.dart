@@ -16,10 +16,10 @@ class ProductListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xFFE1E8E3)),
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +31,12 @@ class ProductListTile extends StatelessWidget {
               ),
             ),
             child: SizedBox(
-              width: 72,
-              height: 80,
+              width: 88,
+              height: 100,
               child: ProductArtwork(product: product),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,9 @@ class ProductListTile extends StatelessWidget {
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    minimumSize: const Size(0, 36),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     alignment: Alignment.centerLeft,
                   ),
                   onPressed: () => Navigator.of(context).push(
@@ -61,7 +63,9 @@ class ProductListTile extends StatelessWidget {
                   child: Text(
                     product.name,
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: Color(0xFF191F28),
+                      fontSize: 15,
+                      height: 1.35,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -94,11 +98,15 @@ class ComparisonButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<ProductProvider>();
     final selected = provider.isSelected(product.id);
-    return OutlinedButton(
+    return OutlinedButton.icon(
       key: ValueKey('compare-${product.id}'),
       style: OutlinedButton.styleFrom(
         foregroundColor: const Color(0xFF477966),
         backgroundColor: const Color(0xFFE5F0E9),
+        side: BorderSide.none,
+        minimumSize: const Size(0, 40),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onPressed: () {
         if (selected) {
@@ -117,7 +125,8 @@ class ComparisonButton extends StatelessWidget {
               .showSnackBar(SnackBar(content: Text(error)));
         }
       },
-      child: Text(selected ? '✓ 비교에서 빼기' : '+ 비교에 담기'),
+      icon: Icon(selected ? Icons.check_rounded : Icons.add_rounded, size: 17),
+      label: Text(selected ? '비교에서 빼기' : '비교에 담기'),
     );
   }
 }

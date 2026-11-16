@@ -1,3 +1,5 @@
+import '../widgets/catalog_receipt.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,7 @@ import '../widgets/product_artwork.dart';
 import '../widgets/product_formatters.dart';
 import 'price_check_screen.dart';
 import 'product_detail_screen.dart';
+import 'comparison_history_screen.dart';
 
 class ProductComparisonScreen extends StatelessWidget {
   const ProductComparisonScreen({super.key, this.showBottomNavigation = true});
@@ -52,6 +55,18 @@ class ProductComparisonScreen extends StatelessWidget {
                 icon: SvgPicture.asset('assets/images/figma/back.svg'),
               ),
         title: const Text('제품 비교'),
+        actions: [
+          IconButton(
+            tooltip: '저장한 비교',
+            icon: const Icon(Icons.bookmark_border_rounded),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const ComparisonHistoryScreen(),
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: !showBottomNavigation
           ? null
@@ -80,16 +95,32 @@ class ProductComparisonScreen extends StatelessWidget {
           final products = provider.selectedProducts;
           if (products.isEmpty) {
             return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('비교할 제품이 없습니다.'),
-                  TextButton(
-                    onPressed: () =>
-                        context.read<AppNavigationController?>()?.select(1),
-                    child: const Text('제품 찾아보기'),
-                  ),
-                ],
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.view_column_outlined,
+                      size: 44,
+                      color: _green,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      '비교할 제품이 없습니다.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () =>
+                          context.read<AppNavigationController?>()?.select(1),
+                      child: const Text('제품 찾아보기'),
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -110,6 +141,7 @@ class ProductComparisonScreen extends StatelessWidget {
                           height: 1.4,
                         ),
                       ),
+                      const CatalogReceipt(),
                       const SizedBox(height: 16),
                       _ProductHeaderRow(
                         products: products,
@@ -140,35 +172,11 @@ class ProductComparisonScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       const Divider(height: 1, color: Color(0xFFE5E8EB)),
                       const SizedBox(height: 4),
-                      _SpecificationTable(products: products),
+                      _SpecificationTable(
+                        products: products,
+                        preferences: provider.selectionPreferences,
+                      ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 78,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-                  child: SizedBox.expand(
-                    child: FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: _green,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        textStyle: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      onPressed: () => _openDetail(context, products.first),
-                      child: Text(
-                        '${products.first.name} 상세 정보 보기  →',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -194,8 +202,7 @@ class _DifferenceSummary extends StatelessWidget {
       for (final product in failed)
         '${product.name}: 현재 필수·선택 조건과 달라요 (${preferences.exclusionReasons(product).join(', ')}).',
       ...personal,
-      ..._buildInsights(products)
-          .where((text) => personal.isEmpty || text.contains('저렴해요.')),
+      ...<String>[].where((text) => personal.isEmpty || text.contains('저렴해요.')),
     ];
     if (insights.isEmpty) return const SizedBox.shrink();
 
@@ -260,94 +267,6 @@ class _DifferenceSummary extends StatelessWidget {
       ),
     );
   }
-
-  List<String> _buildInsights(List<Product> products) {
-    final insights = <String>[];
-
-    final cheapest = products.reduce(
-      (left, right) => left.price <= right.price ? left : right,
-    );
-    final mostExpensive = products.reduce(
-      (left, right) => left.price >= right.price ? left : right,
-    );
-    final priceDifference = mostExpensive.price - cheapest.price;
-    if (priceDifference > 0) {
-      insights.add(
-        '${_brandName(cheapest)}이(가) ${_brandName(mostExpensive)}보다 '
-        '${formatPrice(priceDifference)}원 저렴해요.',
-      );
-    }
-
-    final batteries = products
-        .map(
-          (product) => (
-            product: product,
-            value: product.caseBattery?.value is num
-                ? (product.caseBattery!.value as num).toDouble()
-                : null,
-          ),
-        )
-        .where((entry) => entry.value != null)
-        .toList(growable: false);
-    final batteryConditions = batteries
-        .map((entry) => entry.product.caseBattery!.playbackCondition)
-        .toSet();
-    if (batteries.length > 1 && batteryConditions.length == 1) {
-      final shortest = batteries.reduce(
-        (left, right) => left.value! <= right.value! ? left : right,
-      );
-      final longest = batteries.reduce(
-        (left, right) => left.value! >= right.value! ? left : right,
-      );
-      final difference = longest.value! - shortest.value!;
-      if (difference > 0) {
-        insights.add(
-          '${_brandName(longest.product)}이(가) ${batteryConditions.single} 기준 케이스 포함 재생 시간이 '
-          '${_brandName(shortest.product)}보다 ${_number(difference)}시간 길어요.',
-        );
-      }
-    }
-
-    final weights = products
-        .map(
-          (product) =>
-              (product: product, value: _numericSpec(product, 'weight')),
-        )
-        .where((entry) => entry.value != null)
-        .toList(growable: false);
-    if (weights.length > 1) {
-      final lightest = weights.reduce(
-        (left, right) => left.value! <= right.value! ? left : right,
-      );
-      final heaviest = weights.reduce(
-        (left, right) => left.value! >= right.value! ? left : right,
-      );
-      final difference = heaviest.value! - lightest.value!;
-      if (difference > 0) {
-        insights.add(
-          '${_brandName(lightest.product)}이(가) 한 쪽 기준 '
-          '${_brandName(heaviest.product)}보다 ${_number(difference)}g 가벼워요.',
-        );
-      }
-    }
-
-    return insights;
-  }
-
-  String _brandName(Product product) => product.name;
-
-  double? _numericSpec(Product product, String key) {
-    for (final specification in product.specs) {
-      if (specification.key == key && specification.value is num) {
-        return (specification.value as num).toDouble();
-      }
-    }
-    return null;
-  }
-
-  String _number(double value) => value == value.roundToDouble()
-      ? value.toInt().toString()
-      : value.toString();
 }
 
 class _ProductHeaderRow extends StatelessWidget {
@@ -363,20 +282,23 @@ class _ProductHeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(width: 82),
-        for (var index = 0; index < products.length; index++)
-          Expanded(
-            child: _ProductHeader(
-              product: products[index],
-              darkArtwork: index == 0,
-              onOpenDetail: () => onOpenDetail(products[index]),
-              onOpenPrice: () => onOpenPrice(products[index]),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 7),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(width: 82),
+          for (var index = 0; index < products.length; index++)
+            Expanded(
+              child: _ProductHeader(
+                product: products[index],
+                darkArtwork: index == 0,
+                onOpenDetail: () => onOpenDetail(products[index]),
+                onOpenPrice: () => onOpenPrice(products[index]),
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -420,18 +342,15 @@ class _ProductHeader extends StatelessWidget {
                   child: ProductArtwork(product: product, dark: darkArtwork),
                 ),
                 const SizedBox(height: 7),
-                SizedBox(
-                  height: 17,
-                  child: Text(
-                    product.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: _ink,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
+                Text(
+                  product.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: _ink,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -439,7 +358,7 @@ class _ProductHeader extends StatelessWidget {
                   '상세 보기',
                   style: TextStyle(
                     color: _green,
-                    fontSize: 9,
+                    fontSize: 11,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -464,19 +383,31 @@ class _ProductHeader extends StatelessWidget {
         TextButton(
           onPressed: () =>
               context.read<ProductProvider>().removeFromComparison(product.id),
-          child: const Text('빼기', style: TextStyle(fontSize: 10)),
+          child: const Text('빼기', style: TextStyle(fontSize: 11)),
         ),
       ],
     );
   }
 }
 
-class _SpecificationTable extends StatelessWidget {
-  const _SpecificationTable({required this.products});
+class _SpecificationTable extends StatefulWidget {
+  const _SpecificationTable({
+    required this.products,
+    required this.preferences,
+  });
 
   final List<Product> products;
 
-  static const _rows = <(String, String)>[
+  final ProductPreferences preferences;
+  @override
+  State<_SpecificationTable> createState() => _SpecificationTableState();
+}
+
+class _SpecificationTableState extends State<_SpecificationTable> {
+  bool _expanded = false;
+  List<Product> get products => widget.products;
+  ProductPreferences get preferences => widget.preferences;
+  static const _defaultRows = <(String, String)>[
     ('가격', 'price'),
     ('배터리', 'battery'),
     ('무게', 'weight'),
@@ -486,29 +417,60 @@ class _SpecificationTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priorities = preferences.priorities.toSet().toList()
+      ..sort(
+        (a, b) => preferences.weightFor(b).compareTo(preferences.weightFor(a)),
+      );
+    final rows = priorities.isEmpty
+        ? [..._defaultRows]
+        : <(String, String)>[
+            ('가격', 'price'),
+            for (final p in priorities)
+              _defaultRows.firstWhere(
+                (r) => r.$1 == p || p == '방수' && r.$2 == 'waterResistance',
+              ),
+          ];
+    final extras = <(String, String)>[
+      for (final r in _defaultRows)
+        if (!rows.any((a) => a.$2 == r.$2)) r,
+    ];
+    for (final product in products) {
+      for (final spec in product.specs) {
+        if (!rows.any((r) => r.$2 == spec.key) &&
+            !extras.any((r) => r.$2 == spec.key) &&
+            !(spec.key == 'weight' ||
+                spec.key == 'anc' ||
+                spec.key == 'waterResistance')) {
+          extras.add((spec.label, spec.key));
+        }
+      }
+    }
+    final displayedRows = [...rows, if (_expanded) ...extras];
     return Column(
       children: [
-        for (var index = 0; index < _rows.length; index++)
+        Text(
+          '배터리 비교 기준 · ${preferences.batteryCondition == 'ancOn' ? 'ANC 켬' : '일반 재생'}',
+        ),
+        for (var index = 0; index < displayedRows.length; index++)
           _SpecificationRow(
-            label: _rows[index].$1,
-            keyName: _rows[index].$2,
+            label: displayedRows[index].$1,
+            keyName: displayedRows[index].$2,
             values: products
-                .map((product) => _valueFor(product, _rows[index].$2))
+                .map((product) => _valueFor(product, displayedRows[index].$2))
                 .toList(growable: false),
-            detailValues: _rows[index].$2 == 'price'
+            detailValues: displayedRows[index].$2 == 'price'
                 ? products
                       .map(
                         (product) => formatCompactDate(product.priceCheckedAt),
                       )
                       .toList(growable: false)
-                : _rows[index].$2 == 'battery'
+                : displayedRows[index].$2 == 'battery'
                 ? products
                       .map((product) {
-                        final battery =
-                            product.caseBattery ?? product.earbudBattery;
+                        final battery = preferences.batteryFor(product);
                         return battery == null
                             ? ''
-                            : '${product.caseBattery != null ? '케이스 포함' : '이어버드'} · ${battery.playbackCondition}';
+                            : '이어버드 · ${battery.playbackCondition}';
                       })
                       .toList(growable: false)
                 : null,
@@ -518,6 +480,10 @@ class _SpecificationTable extends StatelessWidget {
               _ => Colors.white,
             },
           ),
+        TextButton(
+          onPressed: () => setState(() => _expanded = !_expanded),
+          child: Text(_expanded ? '주요 사양만 보기' : '전체 사양 보기'),
+        ),
       ],
     );
   }
@@ -525,7 +491,7 @@ class _SpecificationTable extends StatelessWidget {
   String _valueFor(Product product, String key) {
     if (key == 'price') return '${formatPrice(product.price)}원';
     if (key == 'battery') {
-      final battery = product.caseBattery ?? product.earbudBattery;
+      final battery = preferences.batteryFor(product);
       return battery == null
           ? '정보 없음'
           : '${battery.value}${battery.unit ?? ''}';

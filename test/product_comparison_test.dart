@@ -28,7 +28,9 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    final products = await tester.runAsync(ProductRepository().loadProducts);
+    final products = await tester.runAsync(
+      AssetProductRepository().loadProducts,
+    );
     final selected = [
       products!.singleWhere((product) => product.id == 'soundcore-p20i'),
       products.singleWhere((product) => product.id == 'soundcore-p41i'),
@@ -49,11 +51,10 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.text('30시간'), findsOneWidget);
-    expect(find.text('160시간'), findsOneWidget);
-    expect(find.text('20시간'), findsOneWidget);
-    expect(find.text('케이스 포함 · 일반 재생'), findsOneWidget);
-    expect(find.text('케이스 포함 · ANC 켬'), findsNWidgets(2));
+    expect(find.text('정보 없음'), findsWidgets);
+    expect(find.text('이어버드 · ANC 켬'), findsNWidgets(2));
+    expect(find.text('30시간'), findsNothing);
+    expect(find.text('전체 사양 보기'), findsOneWidget);
     expect(find.textContaining('시간 길어요.'), findsNothing);
     expect(tester.takeException(), isNull);
   });
@@ -90,7 +91,7 @@ void main() {
     expect(find.text('테스트 이어폰'), findsOneWidget);
     expect(find.text('100,000원'), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(FilledButton, '테스트 이어폰 상세 정보 보기  →'));
+    await tester.tap(find.text('상세 보기'));
     await tester.pumpAndSettle();
 
     expect(

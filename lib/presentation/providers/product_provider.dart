@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/models/product.dart';
 import '../../data/models/product_preferences.dart';
 import '../../data/services/product_repository.dart';
+import '../../data/services/pickwise_api.dart';
 
 enum ProductSelectionResult {
   added,
@@ -21,9 +23,29 @@ class ProductProvider extends ChangeNotifier {
     : _repository = repository ?? ProductRepository();
 
   static const int maxComparisonProducts = 3;
-  static const String _comparisonIdsKey = 'comparison_product_ids';
+  String _identity = 'guest';
+  String get identity => _identity;
+  String get _comparisonIdsKey => _identity == 'guest'
+      ? 'comparison_product_ids'
+      : 'comparison_product_ids:$_identity';
+  int preferenceRevision = 0;
+  ProductPreferences? defaultPreferences;
+  bool _editing = false;
+  bool get hasEditedPreferences => _editing;
+  bool _disposed = false;
+  @override
+  void notifyListeners() {
+    if (!_disposed) super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
 
   final ProductRepository _repository;
+  PickwiseApi get api => _repository.api;
   SharedPreferences? _preferences;
   List<Product> _products = const [];
   final List<String> _selectedProductIds = [];
@@ -34,12 +56,88 @@ class ProductProvider extends ChangeNotifier {
   ProductPreferences get selectionPreferences => _selectionPreferences;
 
   void updateSelectionPreferences(ProductPreferences preferences) {
+    _editing = true;
+    preferenceRevision++;
     _selectionPreferences = preferences.withWeights(preferences.weights);
+    unawaited(
+      _writeSelectionPreferences(
+        _identity,
+        jsonEncode(_selectionPreferences.toJson()),
+      ),
+    );
+    notifyListeners();
+  }
+
+  Future<void> _writeSelectionPreferences(String identity, String data) async {
+    try {
+      final storage = await _getPreferences();
+      await storage?.setString('selectionPreferences:$identity', data);
+    } catch (error, stackTrace) {
+      debugPrint('취향을 저장하지 못했습니다: $error\n$stackTrace');
+    }
+  }
+
+  Future<void> switchIdentity(
+    String identity, {
+    bool preserveDraft = false,
+  }) async {
+    if (_identity == identity) return;
+    final draft = preserveDraft && _editing ? _selectionPreferences : null;
+    final previous = _identity;
+    _identity = identity;
+    preferenceRevision++;
+    _selectedProductIds.clear();
+    _selectionPreferences = const ProductPreferences();
+    defaultPreferences = null;
+    _editing = false;
+    notifyListeners();
+    final storage = await _getPreferences();
+    if (_identity != identity) return;
+    if (previous != 'guest') {
+      await storage?.remove('comparison_product_ids:$previous');
+    }
+    if (identity != 'guest') {
+      await storage?.remove('comparison_product_ids:$identity');
+    }
+    if (_identity != identity) return;
+    final raw = storage?.getString('selectionPreferences:$identity');
+    if (draft != null) {
+      _selectionPreferences = draft;
+      _editing = true;
+    } else if (raw != null) {
+      _selectionPreferences = ProductPreferences.fromJson(
+        jsonDecode(raw) as Map<String, dynamic>,
+      );
+      _editing = true;
+    } else {
+      final cached = storage?.getString('defaultPreferences:$identity');
+      if (cached != null) {
+        _selectionPreferences = ProductPreferences.fromJson(
+          jsonDecode(cached) as Map<String, dynamic>,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  void applyDefaultPreferences(ProductPreferences value) {
+    defaultPreferences = value;
+    if (_preferences != null) {
+      unawaited(
+        _preferences!.setString(
+          'defaultPreferences:$_identity',
+          jsonEncode(value.toJson()),
+        ),
+      );
+    }
+    if (!_editing && selectedCount == 0) _selectionPreferences = value;
     notifyListeners();
   }
 
   List<Product> get products => List.unmodifiable(_products);
   bool get isLoading => _isLoading;
+  bool get usingCache => _repository.usingCache;
+  String? get cachedAt => _repository.cachedAt;
   bool get hasLoadError => _loadError != null;
   String get loadErrorMessage => _loadError is FormatException
       ? (_loadError as FormatException).message
@@ -55,15 +153,28 @@ class ProductProvider extends ChangeNotifier {
   bool isSelected(String productId) => _selectedProductIds.contains(productId);
 
   Future<void> loadProducts() async {
+    if (_isLoading) return;
+    final identity = _identity;
+    final revision = preferenceRevision;
     _isLoading = true;
     _loadError = null;
     notifyListeners();
 
     try {
-      _products = await _repository.loadProducts();
+      final loaded = await _repository.loadProducts();
+      if (_disposed) return;
+      _products = loaded;
       final preferences = await _getPreferences();
+      final raw = preferences?.getString('selectionPreferences:$_identity');
+      if (raw != null && !_editing) {
+        _selectionPreferences = ProductPreferences.fromJson(
+          jsonDecode(raw) as Map<String, dynamic>,
+        );
+      }
       final savedIds = preferences?.getStringList(_comparisonIdsKey);
-      if (savedIds != null) {
+      if (identity != _identity || revision != preferenceRevision) {
+        _restoreSelection(List<String>.of(_selectedProductIds));
+      } else if (savedIds != null) {
         _restoreSelection(savedIds);
       } else {
         _restoreSelection(List<String>.of(_selectedProductIds));
@@ -75,6 +186,13 @@ class ProductProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void restoreComparison(List<String> ids, ProductPreferences preferences) {
+    _restoreSelection(ids);
+    updateSelectionPreferences(preferences);
+    _persistSelection();
+    notifyListeners();
   }
 
   ProductSelectionResult addToComparison(String productId) {

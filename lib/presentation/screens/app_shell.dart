@@ -5,46 +5,28 @@ import '../providers/app_navigation_controller.dart';
 import '../providers/product_provider.dart';
 import '../widgets/pickwise_bottom_navigation.dart';
 import 'home_screen.dart';
+import 'my_page_screen.dart';
 import 'product_comparison_screen.dart';
 import 'search_screen.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
-
   @override
   State<AppShell> createState() => _AppShellState();
 }
 
 class _AppShellState extends State<AppShell> {
-  bool _navigationVisible = true;
-  double _scrollDistance = 0;
-  int _lastIndex = 0;
-  int _lastSelectedCount = 0;
+  final _scrolled = List.filled(PickWiseTab.values.length, false);
 
-  void _revealSearchNavigation() {
-    if (_lastIndex != 1) return;
-    _scrollDistance = 0;
-    if (!_navigationVisible) setState(() => _navigationVisible = true);
-  }
-
-  bool _onScroll(ScrollUpdateNotification notification) {
-    if (notification.depth != 0 ||
-        notification.metrics.axis != Axis.vertical ||
-        notification.dragDetails == null ||
-        notification.metrics.outOfRange) {
+  bool _onScroll(ScrollNotification notification) {
+    if (notification.depth != 0 || notification.metrics.axis != Axis.vertical) {
       return false;
     }
-    final delta = notification.scrollDelta ?? 0;
-    if (delta == 0) return false;
-    if (_scrollDistance.sign != delta.sign) _scrollDistance = 0;
-    _scrollDistance += delta;
-    final atTop = notification.metrics.pixels <= 0;
-    if (atTop || _scrollDistance.abs() >= 24) {
-      final visible = atTop || _scrollDistance < 0;
-      if (visible != _navigationVisible) {
-        setState(() => _navigationVisible = visible);
-      }
-      _scrollDistance = 0;
+    final index = context.read<AppNavigationController>().index;
+    final scrolled =
+        notification.metrics.pixels > notification.metrics.minScrollExtent + 1;
+    if (_scrolled[index] != scrolled) {
+      setState(() => _scrolled[index] = scrolled);
     }
     return false;
   }
@@ -52,61 +34,48 @@ class _AppShellState extends State<AppShell> {
   @override
   Widget build(BuildContext context) {
     final navigation = context.watch<AppNavigationController>();
-    final selectedCount = context.select<ProductProvider, int>(
-      (provider) => provider.selectedCount,
-    );
-    if (_lastIndex != navigation.index || _lastSelectedCount != selectedCount) {
-      _navigationVisible = true;
-      _scrollDistance = 0;
-      _lastIndex = navigation.index;
-      _lastSelectedCount = selectedCount;
-    }
-    final visible =
-        MediaQuery.viewInsetsOf(context).bottom == 0 &&
-        (_navigationVisible || MediaQuery.accessibleNavigationOf(context));
-    final duration = MediaQuery.disableAnimationsOf(context)
-        ? Duration.zero
-        : const Duration(milliseconds: 220);
+    final products = context.watch<ProductProvider>();
     return PopScope(
       canPop: navigation.index == 0,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) navigation.select(0);
       },
       child: Scaffold(
-        body: NotificationListener<ScrollUpdateNotification>(
+        body: NotificationListener<ScrollNotification>(
           onNotification: _onScroll,
-          child: IndexedStack(
-            index: navigation.index,
+          child: Column(
             children: [
-              const HomeScreen(),
-              SearchScreen(onNavigationReveal: _revealSearchNavigation),
-              const ProductComparisonScreen(showBottomNavigation: false),
+              if (products.usingCache)
+                SafeArea(
+                  bottom: false,
+                  child: ListTile(
+                    title: const Text('연결 실패 · 마지막으로 받은 제품 정보예요.'),
+                    subtitle: Text('데이터 수신 시점: ${products.cachedAt ?? ''}'),
+                    trailing: TextButton(
+                      onPressed: products.loadProducts,
+                      child: const Text('재시도'),
+                    ),
+                  ),
+                ),
+              Expanded(
+                child: IndexedStack(
+                  index: navigation.index,
+                  children: const [
+                    HomeScreen(),
+                    SearchScreen(),
+                    ProductComparisonScreen(showBottomNavigation: false),
+                    MyPageScreen(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-        bottomNavigationBar: TweenAnimationBuilder<double>(
-          tween: Tween(end: visible ? 1 : 0),
-          duration: duration,
-          curve: Curves.easeOutCubic,
-          child: IgnorePointer(
-            ignoring: !visible,
-            child: ExcludeSemantics(
-              excluding: !visible,
-              child: PickWiseBottomNavigation(
-                selectedTab: PickWiseTab.values[navigation.index],
-              ),
-            ),
-          ),
-          builder: (context, value, child) => ClipRect(
-            key: const ValueKey('app-bottom-navigation'),
-            child: Align(
-              alignment: Alignment.topCenter,
-              heightFactor: value,
-              child: FractionalTranslation(
-                translation: Offset(0, 1 - value),
-                child: child,
-              ),
-            ),
+        bottomNavigationBar: SizedBox(
+          key: const ValueKey('app-bottom-navigation'),
+          child: PickWiseBottomNavigation(
+            selectedTab: PickWiseTab.values[navigation.index],
+            scrolled: _scrolled[navigation.index],
           ),
         ),
       ),

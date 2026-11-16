@@ -28,7 +28,7 @@ void main() {
       await rootBundle.loadString('assets/data/products.json'),
     ) as List;
     expect(raw.every((item) => item['isDummyData'] != true), isTrue);
-    final products = await ProductRepository().loadProducts();
+    final products = await AssetProductRepository().loadProducts();
     expect(products, hasLength(20));
     expect(
       products.map((product) => product.id).toSet(),
@@ -56,7 +56,7 @@ void main() {
   });
 
   test('20개 제품 가격은 수집 기록과 일치하고 실제 사진을 디코딩할 수 있다', () async {
-    final products = await ProductRepository().loadProducts();
+    final products = await AssetProductRepository().loadProducts();
     final evidence = (jsonDecode(
       await File('docs/catalog_sources_2026-11-03.json').readAsString(),
     ) as List).map((row) => Map<String, dynamic>.from(row as Map)).toList();
@@ -91,7 +91,7 @@ void main() {
   });
 
   test('모든 예산대와 착용 형태에 실제 후보가 있고 배터리 조건이 올바르다', () async {
-    final products = await ProductRepository().loadProducts();
+    final products = await AssetProductRepository().loadProducts();
     for (final budget in ['5만원 미만', '5만~15만원', '15만원 초과']) {
       expect(
         ProductPreferences(budget: budget).recommend(products),
@@ -115,7 +115,7 @@ void main() {
         expect(product.specification('maxBatteryHoursAncOn'), isNull);
         expect(
           const ProductPreferences(priorities: ['배터리']).reasons(product).join(),
-          isNot(contains('ANC')),
+          contains('ANC 켬 기준 정보가 없어요'),
         );
       }
     }
@@ -131,7 +131,7 @@ void main() {
   });
 
   test('비교 목록은 자동으로 채우지 않고 사용자의 선택을 복원한다', () async {
-    final provider = ProductProvider();
+    final provider = ProductProvider(repository: AssetProductRepository());
     addTearDown(provider.dispose);
     await provider.loadProducts();
     expect(provider.selectedCount, 0);
@@ -141,19 +141,19 @@ void main() {
       provider.addToComparison(product.id),
       ProductSelectionResult.alreadySelected,
     );
-    final restored = ProductProvider();
+    final restored = ProductProvider(repository: AssetProductRepository());
     addTearDown(restored.dispose);
     await restored.loadProducts();
     expect(restored.selectedProducts.single.id, product.id);
     restored.removeFromComparison(product.id);
-    final cleared = ProductProvider();
+    final cleared = ProductProvider(repository: AssetProductRepository());
     addTearDown(cleared.dispose);
     await cleared.loadProducts();
     expect(cleared.selectedCount, 0);
   });
 
   test('중복과 네 번째 비교 제품을 차단한다', () async {
-    final products = await ProductRepository().loadProducts();
+    final products = await AssetProductRepository().loadProducts();
     final first = products.first;
     final fourth = Product(
       id: 'fourth-test-product',
@@ -190,7 +190,7 @@ void main() {
   });
 
   test('추천은 예산과 착용 형태를 만족하고 후보 추가로 두 제품의 순서가 바뀌지 않는다', () async {
-    final products = await ProductRepository().loadProducts();
+    final products = await AssetProductRepository().loadProducts();
     const preferences = ProductPreferences(
       priorities: ['배터리', '무게'],
       budget: '15만원 초과',

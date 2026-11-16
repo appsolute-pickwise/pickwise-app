@@ -1,3 +1,4 @@
+import 'package:pickwise/presentation/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product.dart';
@@ -67,7 +68,7 @@ void main() {
     for (final scale in [1.5, 2.0]) {
       testWidgets('비교표 3개는 폭 $width·글자 $scale 배에서 넘치지 않는다', (tester) async {
         SharedPreferences.setMockInitialValues({});
-        final provider = ProductProvider();
+        final provider = ProductProvider(repository: AssetProductRepository());
         addTearDown(provider.dispose);
         await tester.runAsync(provider.loadProducts);
         for (final product in provider.products.take(3)) {
@@ -82,14 +83,16 @@ void main() {
           width: width,
           textScale: scale,
         );
-        expect(find.text('케이스 포함 · ANC 켬'), findsNWidgets(3));
+        expect(find.text('이어버드 · ANC 켬'), findsNWidgets(3));
         expect(tester.takeException(), isNull);
       });
     }
   }
 
   testWidgets('운영 제품 20개의 상세와 가격 화면이 320px에서 정상 표시된다', (tester) async {
-    final products = await tester.runAsync(ProductRepository().loadProducts);
+    final products = await tester.runAsync(
+      AssetProductRepository().loadProducts,
+    );
     expect(products, hasLength(20));
     for (final product in products!) {
       for (final screen in [
@@ -196,4 +199,29 @@ void main() {
     expect(find.textContaining('ANC 켬'), findsNothing);
     expect(tester.takeException(), isNull);
   });
+  for (final page in ['detail', 'price', 'result']) {
+    testWidgets('$page 화면 하단 안전영역은 한 번만 적용한다', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final provider = ProductProvider(repository: AssetProductRepository());
+      addTearDown(provider.dispose);
+      if (page == 'result') await tester.runAsync(provider.loadProducts);
+      final Widget screen = switch (page) {
+        'detail' => ProductDetailScreen(product: _product()),
+        'price' => PriceCheckScreen(product: _product()),
+        _ => ChangeNotifierProvider.value(
+          value: provider,
+          child: const ResultScreen(),
+        ),
+      };
+      await _pumpScreen(tester, screen, bottomPadding: 34);
+      expect(tester.getSize(find.byType(NavigationBar)).height, 90);
+      if (page == 'detail') {
+        final gap =
+            tester.getTopLeft(find.byType(NavigationBar)).dy -
+            tester.getBottomRight(find.byType(FilledButton)).dy;
+        expect(gap, 12);
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
 }

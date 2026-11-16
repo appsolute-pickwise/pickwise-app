@@ -1,3 +1,5 @@
+import '../widgets/catalog_receipt.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,6 +67,7 @@ class ProductDetailScreen extends StatelessWidget {
     final weight = _specification('weight');
     final waterResistance = _specification('waterResistance');
     final anc = _specification('anc');
+    final wearType = _specification('wearType');
 
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +83,7 @@ class ProductDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 170,
+              height: 218,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -103,7 +106,7 @@ class ProductDetailScreen extends StatelessWidget {
               product.name,
               style: const TextStyle(
                 color: _ink,
-                fontSize: 23,
+                fontSize: 26,
                 height: 1.25,
                 fontWeight: FontWeight.w700,
               ),
@@ -115,44 +118,78 @@ class ProductDetailScreen extends StatelessWidget {
               '${formatPrice(product.price)}원',
               style: const TextStyle(
                 color: _ink,
-                fontSize: 18,
+                fontSize: 24,
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 3),
             Text(
               '${priceComparisonSiteLabel(product.priceComparisonSite)} 기준 · ${formatDate(product.priceCheckedAt)} 확인',
-              style: const TextStyle(color: _muted, fontSize: 10),
+              style: const TextStyle(color: _muted, fontSize: 12),
             ),
+            const CatalogReceipt(),
             const SizedBox(height: 29),
-            Row(
-              children: [
-                _SpecCard(
-                  value: battery == null
-                      ? '정보 없음'
-                      : '최대 ${battery.value}${battery.unit ?? ''}',
-                  label: includesCase
-                      ? '총 배터리'
-                      : battery == null
-                      ? '배터리'
-                      : '이어버드 배터리',
-                  highlighted: true,
-                ),
-                const SizedBox(width: 8),
-                _SpecCard(
-                  value: weight == null
-                      ? '정보 없음'
-                      : '${weight.value}${weight.unit ?? ''} / 1개',
-                  label: '이어버드 무게',
-                ),
-                const SizedBox(width: 8),
-                _SpecCard(
-                  value: waterResistance == null
-                      ? '정보 없음'
-                      : formatSpecificationValue(waterResistance),
-                  label: '방수 등급',
-                ),
-              ],
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final cards = <Widget>[
+                  _SpecCard(
+                    value: battery == null
+                        ? '정보 없음'
+                        : '최대 ${battery.value}${battery.unit ?? ''}',
+                    label: includesCase
+                        ? '총 배터리'
+                        : battery == null
+                        ? '배터리'
+                        : '이어버드 배터리',
+                    highlighted: true,
+                  ),
+                  _SpecCard(
+                    value: weight == null
+                        ? '정보 없음'
+                        : '${weight.value}${weight.unit ?? ''} / 1개',
+                    label: '이어버드 무게',
+                  ),
+                  _SpecCard(
+                    value: waterResistance == null
+                        ? '정보 없음'
+                        : formatSpecificationValue(waterResistance),
+                    label: '방수 등급',
+                  ),
+                ];
+                final stacked =
+                    constraints.maxWidth < 480 &&
+                    MediaQuery.textScalerOf(context).scale(14) > 18;
+                if (stacked) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var i = 0; i < cards.length; i++)
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: i == cards.length - 1 ? 0 : 8,
+                          ),
+                          child: cards[i],
+                        ),
+                    ],
+                  );
+                }
+                return IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var i = 0; i < cards.length; i++) ...[
+                        if (i > 0) const SizedBox(width: 8),
+                        Expanded(child: cards[i]),
+                      ],
+                    ],
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '착용 형태: ${wearType?.value ?? '정보 없음'}',
+              style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 20),
             const Text(
@@ -166,7 +203,7 @@ class ProductDetailScreen extends StatelessWidget {
             const SizedBox(height: 6),
             Container(
               width: double.infinity,
-              height: 92,
+              constraints: const BoxConstraints(minHeight: 92),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xFFE5E8EB)),
@@ -249,42 +286,39 @@ class ProductDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-              child: SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    backgroundColor: _green,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
                   ),
-                  onPressed: () => _openPriceCheck(context),
-                  child: Text(
-                    '현재 가격은 ${priceComparisonSiteLabel(product.priceComparisonSite)}에서 보기  →',
+                  backgroundColor: _green,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
                   ),
+                  textStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                onPressed: () => _openPriceCheck(context),
+                child: Text(
+                  '현재 가격은 ${priceComparisonSiteLabel(product.priceComparisonSite)}에서 보기  →',
                 ),
               ),
             ),
-            const PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
-          ],
-        ),
+          ),
+          const PickWiseBottomNavigation(selectedTab: PickWiseTab.explore),
+        ],
       ),
     );
   }
@@ -303,41 +337,35 @@ class _SpecCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 70,
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 9),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: const Color(0xFFE5E8EB)),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                value,
-                maxLines: 1,
-                style: TextStyle(
-                  color: highlighted
-                      ? const Color(0xFF1B5FC7)
-                      : const Color(0xFF191F28),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+    return Container(
+      constraints: const BoxConstraints(minHeight: 70),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 9),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFE5E8EB)),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            value,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: highlighted
+                  ? const Color(0xFF1B5FC7)
+                  : const Color(0xFF191F28),
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
             ),
-            const SizedBox(height: 5),
-            Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Color(0xFF657181), fontSize: 10),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Color(0xFF657181), fontSize: 12),
+          ),
+        ],
       ),
     );
   }
@@ -358,9 +386,7 @@ class _FeatureLine extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Color(0xFF303B4A), fontSize: 10),
+            style: const TextStyle(color: Color(0xFF303B4A), fontSize: 12),
           ),
         ),
       ],

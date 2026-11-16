@@ -6,7 +6,7 @@ class AppNavigationController extends ChangeNotifier {
   int get index => _index;
 
   void select(int index) {
-    if (index < 0 || index > 2 || _index == index) return;
+    if (index < 0 || index > 3 || _index == index) return;
     _index = index;
     notifyListeners();
   }

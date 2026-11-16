@@ -1,3 +1,4 @@
+import 'package:pickwise/presentation/providers/session_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product.dart';
@@ -23,6 +24,31 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  testWidgets('홈 로그인 버튼에서 로그인과 회원가입 입력창을 연다', (tester) async {
+    final provider = ProductProvider(repository: AssetProductRepository());
+    addTearDown(provider.dispose);
+    await tester.runAsync(provider.loadProducts);
+    await tester.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: provider,
+        child: ChangeNotifierProvider(
+          create: (_) => SessionProvider(api: provider.api, products: provider),
+          child: const MaterialApp(home: HomeScreen()),
+        ),
+      ),
+    );
+    await tester.tap(find.text('로그인 · 회원가입'));
+    await tester.pumpAndSettle();
+    expect(find.text('마이페이지'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, '로그인 · 회원가입'));
+    await tester.pumpAndSettle();
+    expect(find.text('이메일'), findsOneWidget);
+    expect(find.text('비밀번호'), findsOneWidget);
+    expect(find.widgetWithText(FilledButton, '로그인'), findsOneWidget);
+    expect(find.text('회원가입'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('가로 화면에서 키보드를 열어도 탐색 상단과 결과를 스크롤할 수 있다', (tester) async {
     tester.view.physicalSize = const Size(844, 390);
     tester.view.devicePixelRatio = 1;
@@ -30,7 +56,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     addTearDown(tester.view.resetViewInsets);
-    final provider = ProductProvider();
+    final provider = ProductProvider(repository: AssetProductRepository());
     addTearDown(provider.dispose);
     await tester.runAsync(provider.loadProducts);
     await tester.pumpWidget(
@@ -76,7 +102,7 @@ void main() {
   });
 
   testWidgets('제품이 없을 때 검색어를 입력해도 빈 상태를 표시한다', (tester) async {
-    final provider = ProductProvider();
+    final provider = ProductProvider(repository: AssetProductRepository());
     addTearDown(provider.dispose);
     await tester.pumpWidget(
       ChangeNotifierProvider<ProductProvider>.value(

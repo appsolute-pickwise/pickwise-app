@@ -1,3 +1,4 @@
+import 'package:pickwise/data/services/product_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pickwise/data/models/product_preferences.dart';
 import 'package:pickwise/presentation/providers/product_provider.dart';
@@ -81,10 +82,22 @@ void main() {
       product('긴 배터리', battery: 10, weight: 8),
       product('가벼운 제품', battery: 5, weight: 3),
     ]);
-    expect(insights.first, contains('긴 배터리이(가) 가벼운 제품보다'));
-    expect(insights.first, contains('5시간 길어요'));
-    expect(insights.last, contains('가벼운 제품이(가) 긴 배터리보다'));
-    expect(insights.last, contains('5g 가벼워요'));
+    expect(
+      insights.firstWhere((s) => s.startsWith('배터리:')),
+      contains('긴 배터리이(가) 가벼운 제품보다'),
+    );
+    expect(
+      insights.firstWhere((s) => s.startsWith('배터리:')),
+      contains('5.0시간 길어요'),
+    );
+    expect(
+      insights.firstWhere((s) => s.startsWith('무게:')),
+      contains('가벼운 제품이(가) 긴 배터리보다'),
+    );
+    expect(
+      insights.firstWhere((s) => s.startsWith('무게:')),
+      contains('5.0g 가벼워요'),
+    );
   });
 
   test('재생 조건 차이와 누락 사양을 유리한 성능으로 꾸미지 않는다', () {
@@ -94,14 +107,14 @@ void main() {
       product('일반 모델', normal: true, anc: false, weight: null),
       product('정보 없는 모델', anc: null, weight: null),
     ]).join();
-    expect(insights, contains('재생 조건이 달라'));
+    expect(insights, contains('같은 조건의 정보가 없어'));
     expect(insights, isNot(contains('시간 길어요')));
-    expect(insights, contains('무게: 일반 모델, 정보 없는 모델 정보가 없어'));
-    expect(insights, contains('정보 없는 모델 지원 여부 정보가 없어요'));
+    expect(insights, contains('무게: 같은 조건의 정보가 없어'));
+    expect(insights, contains('ANC: 등급·지원 정보이며 성능 순위를 의미하지 않아요'));
   });
 
   test('공통 Provider에 전달한 기준은 원본 리스트·맵 변경에 영향받지 않는다', () {
-    final provider = ProductProvider();
+    final provider = ProductProvider(repository: AssetProductRepository());
     addTearDown(provider.dispose);
     final priorities = ['배터리'];
     final weights = {'배터리': 4};

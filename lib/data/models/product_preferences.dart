@@ -8,8 +8,11 @@ class ProductPreferences {
     this.requireAnc = false,
     this.maxWeightGrams,
     this.weights = const {},
+    this.batteryCondition = 'ancOn',
   });
 
+  static const ruleVersion = '2026-11-fair-v1';
+  final String batteryCondition;
   final List<String> priorities;
   final String? budget;
   final String? wearType;
@@ -26,6 +29,7 @@ class ProductPreferences {
     requireAnc: requireAnc,
     maxWeightGrams: maxWeightGrams,
     weights: Map.unmodifiable(values),
+    batteryCondition: batteryCondition,
   );
 
   Object? _spec(Product product, String key) {
@@ -37,7 +41,9 @@ class ProductPreferences {
 
   double? _number(Product product, String key) {
     final value = _spec(product, key);
-    return value is num ? value.toDouble() : null;
+    return value is num && value.isFinite && value > 0
+        ? value.toDouble()
+        : null;
   }
 
   List<String> exclusionReasons(Product product) {
@@ -78,157 +84,193 @@ class ProductPreferences {
         .toList();
   }
 
-  int? _waterLevel(Product product) {
-    final value = _spec(product, 'waterResistance');
-    if (value is! String) return null;
-    final match = RegExp(r'^IP[0-6X]([0-9])$').firstMatch(value.toUpperCase());
-    return match == null ? null : int.tryParse(match.group(1)!);
+  ProductSpecification? batteryFor(Product product) {
+    if (batteryCondition == 'ancOn' && _spec(product, 'anc') == false) {
+      return null;
+    }
+    final key = batteryCondition == 'normal'
+        ? 'batteryHours'
+        : 'batteryHoursAncOn';
+    for (final spec in product.specs) {
+      if (spec.key == key &&
+          spec.value is num &&
+          (spec.value as num) > 0 &&
+          (spec.value as num).isFinite) {
+        return spec;
+      }
+    }
+    return null;
   }
 
-  double _score(Product product) {
-    double total = 0;
+  List<String> referenceReasons(Product product) => [
+    for (final priority in priorities.toSet())
+      if (switch (priority) {
+        '배터리' => batteryFor(product) == null,
+        '무게' => (_number(product, 'weight') ?? 0) <= 0,
+        'ANC' => _spec(product, 'anc') is! bool,
+        '방수' => !RegExp(
+          r'^IP[0-6X][0-9]K?$',
+        ).hasMatch('${_spec(product, 'waterResistance')}'),
+        _ => false,
+      })
+        '$priority: ${priority == '배터리' ? '${batteryCondition == 'ancOn' ? 'ANC 켬' : '일반 재생'} 기준 ' : ''}정보가 없어요.',
+  ];
+
+  double? score(Product product) {
+    if (referenceReasons(product).isNotEmpty) return null;
+    double sum = 0, weightSum = 0;
     for (final priority in priorities.toSet()) {
-      final batteryValue = product.earbudBattery?.value;
-      final battery = batteryValue is num ? batteryValue.toDouble() : null;
-      final weight = _number(product, 'weight');
-      // 후보 수에 따라 점수가 바뀌지 않도록 사양별 고정 범위를 사용합니다.
-      final value = switch (priority) {
-        '배터리' => battery == null ? 0 : (battery / 12).clamp(0, 1).toDouble(),
+      final double? value = switch (priority) {
+        '배터리' =>
+          ((batteryFor(product)!.value as num) / 12).clamp(0, 1).toDouble(),
         '무게' =>
-          weight == null ? 0 : ((12 - weight) / 10).clamp(0, 1).toDouble(),
-        'ANC' => _spec(product, 'anc') == true ? 1 : 0,
-        '방수' => ((_waterLevel(product) ?? 0) / 8).clamp(0, 1).toDouble(),
-        _ => 0,
+          ((12 - _number(product, 'weight')!) / 10).clamp(0, 1).toDouble(),
+        _ => null,
       };
-      total += value * weightFor(priority);
+      if (value != null) {
+        sum += value * weightFor(priority);
+        weightSum += weightFor(priority);
+      }
     }
-    return total;
+    return weightSum == 0 ? null : sum / weightSum;
   }
 
   List<Product> recommend(List<Product> products) {
-    final candidates = products.where(matches).toList();
+    final candidates = products
+        .where((p) => matches(p) && referenceReasons(p).isEmpty)
+        .toList();
     candidates.sort((a, b) {
-      final score = _score(b).compareTo(_score(a));
-      if (score != 0) return score;
+      final order = (score(b) ?? 0).compareTo(score(a) ?? 0);
+      if (order != 0) return order;
       final price = a.price.compareTo(b.price);
       return price != 0 ? price : a.id.compareTo(b.id);
     });
     return candidates;
   }
 
-  List<String> reasons(Product product) {
-    final reasons = <String>[];
-    if (budget != null) reasons.add('선택한 예산 범위에 들어요.');
-    if (wearType != null) reasons.add('$wearType 제품이에요.');
-    if (requireAnc) reasons.add('필수 조건인 ANC를 지원해요.');
-    if (maxWeightGrams != null) {
-      reasons.add('한 쪽 ${maxWeightGrams}g 이하 조건을 만족해요.');
-    }
-    if (priorities.contains('배터리')) {
-      final battery = product.earbudBattery;
-      if (battery != null) {
-        reasons.add(
-          '${battery.playbackCondition} 기준 최대 ${battery.value}시간이에요.',
-        );
-      }
-    }
-    if (priorities.contains('무게')) {
-      final weight = _number(product, 'weight');
-      if (weight != null) reasons.add('이어버드 한 쪽 무게는 ${weight}g이에요.');
-    }
-    if (priorities.contains('ANC') && _spec(product, 'anc') == true) {
-      reasons.add('노이즈 캔슬링을 지원해요.');
-    }
-    if (priorities.contains('방수') && _waterLevel(product) != null) {
-      reasons.add('방수 등급은 ${_spec(product, 'waterResistance')}예요.');
-    }
-    return reasons.isEmpty ? ['가격이 낮은 제품부터 살펴볼 수 있어요.'] : reasons;
-  }
+  List<Product> referenceCandidates(List<Product> products) =>
+      products
+          .where((p) => matches(p) && referenceReasons(p).isNotEmpty)
+          .toList()
+        ..sort((a, b) {
+          final c = a.price.compareTo(b.price);
+          return c != 0 ? c : a.id.compareTo(b.id);
+        });
+
+  String get orderingExplanation =>
+      priorities.any((p) => p == '배터리' || p == '무게')
+      ? '같은 조건의 배터리·무게만 점수에 반영해요. 동점은 가격·제품 ID 순이에요.'
+      : '계산할 수치 기준이 없어 가격·제품 ID 순이에요. ANC·방수는 성능 점수로 환산하지 않아요.';
+
+  List<String> reasons(Product product) => [
+    if (budget != null && matches(product)) '선택한 예산 범위에 들어요.',
+    if (wearType != null && matches(product)) '$wearType 제품이에요.',
+    if (requireAnc && _spec(product, 'anc') == true) '필수 조건인 ANC를 지원해요.',
+    if (priorities.contains('배터리') && batteryFor(product) != null)
+      '이어버드 ${batteryCondition == 'ancOn' ? 'ANC 켬' : '일반 재생'} 기준 최대 ${batteryFor(product)!.value}시간이에요.',
+    if (priorities.contains('무게') && _number(product, 'weight') != null)
+      '이어버드 한 쪽 무게는 ${_number(product, 'weight')}g이에요.',
+    if (priorities.contains('ANC') && _spec(product, 'anc') is bool)
+      'ANC ${_spec(product, 'anc') == true ? '지원' : '미지원'} · 성능 우열은 판단하지 않아요.',
+    if (priorities.contains('방수') && _spec(product, 'waterResistance') != null)
+      '방수 등급 ${_spec(product, 'waterResistance')} · 사용 조건을 확인해주세요.',
+    ...referenceReasons(product),
+    orderingExplanation,
+  ];
 
   List<String> comparisonInsights(List<Product> products) {
-    final insights = <String>[];
-    final ordered = priorities.toSet().toList()
-      ..sort((a, b) => weightFor(b).compareTo(weightFor(a)));
-    for (final priority in ordered) {
-      if (priority == 'ANC') {
-        final supported = products
-            .where((p) => _spec(p, 'anc') == true)
-            .map((p) => p.name)
-            .join(', ');
-        final unsupported = products
-            .where((p) => _spec(p, 'anc') == false)
-            .map((p) => p.name)
-            .join(', ');
-        if (supported.isNotEmpty || unsupported.isNotEmpty) {
-          insights.add(
-            'ANC: ${[if (supported.isNotEmpty) '$supported 지원', if (unsupported.isNotEmpty) '$unsupported 미지원'].join(', ')}.',
-          );
-        }
-        final unknown = products
-            .where((p) => _spec(p, 'anc') is! bool)
-            .map((p) => p.name)
-            .join(', ');
-        if (unknown.isNotEmpty) insights.add('ANC: $unknown 지원 여부 정보가 없어요.');
-        continue;
-      }
-      final missingBattery = products
-          .where((p) => p.earbudBattery == null)
-          .map((p) => p.name)
-          .join(', ');
-      if (priority == '배터리' && missingBattery.isNotEmpty) {
-        insights.add('배터리: $missingBattery 정보가 없어 우열 판단에서 제외했어요.');
-      }
-      if (priority == '배터리' &&
-          products
-                  .where((p) => p.earbudBattery != null)
-                  .map((p) => p.earbudBattery!.playbackCondition)
-                  .toSet()
-                  .length >
-              1) {
-        insights.add('배터리: 재생 조건이 달라 직접 우열을 정하지 않았어요.');
-        continue;
-      }
-      double? value(Product p) => switch (priority) {
-        '배터리' =>
-          p.earbudBattery?.value is num
-              ? (p.earbudBattery!.value as num).toDouble()
-              : null,
-        '무게' => _number(p, 'weight'),
-        '방수' => _waterLevel(p)?.toDouble(),
-        _ => null,
-      };
-      final known = products.where((p) => value(p) != null).toList()
-        ..sort(
-          (a, b) => priority == '무게'
-              ? value(a)!.compareTo(value(b)!)
-              : value(b)!.compareTo(value(a)!),
+    final result = <String>[orderingExplanation];
+    if (products.length > 1) {
+      final prices = [...products]..sort((a, b) => a.price.compareTo(b.price));
+      final difference = prices.last.price - prices.first.price;
+      if (difference > 0) {
+        result.add(
+          '등록 가격: ${prices.first.name}이(가) ${prices.last.name}보다 $difference원 낮아요. 각 가격 확인일 기준이에요.',
         );
-      if (known.length >= 2 && value(known.first) != value(known.last)) {
-        final best = known.first;
-        final other = known.last;
-        final difference = (value(best)! - value(other)!).abs();
-        final amount = difference
-            .toStringAsFixed(2)
-            .replaceFirst(RegExp(r'\.?0+$'), '');
-        insights.add(switch (priority) {
-          '배터리' =>
-            '배터리: ${best.name}이(가) ${other.name}보다 이어버드 재생 시간이 $amount시간 길어요 (${best.earbudBattery!.playbackCondition}).',
-          '무게' =>
-            '무게: ${best.name}이(가) ${other.name}보다 한 쪽 기준 ${amount}g 가벼워요.',
-          _ =>
-            '방수: ${best.name} ${_spec(best, 'waterResistance')}, ${other.name} ${_spec(other, 'waterResistance')}. 물 보호 등급의 마지막 숫자를 비교했어요.',
-        });
-      } else if (known.length == products.length && known.length > 1) {
-        insights.add('$priority: 선택한 제품의 등록 수치가 같아요.');
-      }
-      final missing = products
-          .where((p) => value(p) == null)
-          .map((p) => p.name)
-          .join(', ');
-      if (missing.isNotEmpty && priority != '배터리') {
-        insights.add('$priority: $missing 정보가 없어 우열 판단에서 제외했어요.');
       }
     }
-    return insights;
+    for (final key in priorities.toSet()) {
+      if (key == 'ANC' || key == '방수') {
+        result.add('$key: 등급·지원 정보이며 성능 순위를 의미하지 않아요.');
+        continue;
+      }
+      double? number(Product p) => key == '배터리'
+          ? (batteryFor(p)?.value as num?)?.toDouble()
+          : _number(p, 'weight');
+      if (products.any((p) => number(p) == null)) {
+        result.add('$key: 같은 조건의 정보가 없어 우열 판단에서 제외했어요.');
+        continue;
+      }
+      final sorted = [...products]
+        ..sort(
+          (a, b) => key == '무게'
+              ? number(a)!.compareTo(number(b)!)
+              : number(b)!.compareTo(number(a)!),
+        );
+      if (sorted.length < 2) continue;
+      final diff = (number(sorted.first)! - number(sorted.last)!).abs();
+      result.add(
+        diff == 0
+            ? '$key: 선택한 제품의 등록 수치가 같아요.'
+            : '$key: ${sorted.first.name}이(가) ${sorted.last.name}보다 ${diff.toStringAsFixed(1)}${key == '무게' ? 'g 가벼워요.' : '시간 길어요 (${batteryCondition == 'ancOn' ? 'ANC 켬' : '일반 재생'}).'}',
+      );
+    }
+    return result;
   }
+
+  Map<String, dynamic> toJson() => {
+    'priorities': priorities,
+    'budget': budget,
+    'wearType': wearType,
+    'requireAnc': requireAnc,
+    'maxWeightGrams': maxWeightGrams,
+    'weights': weights,
+    'batteryCondition': batteryCondition,
+  };
+  factory ProductPreferences.fromJson(Map<String, dynamic> p) =>
+      ProductPreferences(
+        priorities: List<String>.from(p['priorities'] ?? []),
+        budget: p['budget'] as String?,
+        wearType: p['wearType'] as String?,
+        requireAnc: p['requireAnc'] == true,
+        maxWeightGrams: (p['maxWeightGrams'] as num?)?.toDouble(),
+        weights: Map<String, int>.from(p['weights'] ?? {}),
+        batteryCondition: p['batteryCondition'] as String? ?? 'ancOn',
+      );
+  ProductPreferences withBatteryCondition(String condition) =>
+      ProductPreferences.fromJson({...toJson(), 'batteryCondition': condition});
+
+  List<RelaxationSuggestion> relaxations(List<Product> products) {
+    final options = <RelaxationSuggestion>[];
+    for (final key in ['budget', 'maxWeightGrams', 'wearType', 'requireAnc']) {
+      final value = toJson()[key];
+      if (value == null || value == false) continue;
+      final next = ProductPreferences.fromJson({
+        ...toJson(),
+        key: key == 'requireAnc' ? false : null,
+      });
+      final count = products.where(next.matches).length;
+      if (count > 0) options.add(RelaxationSuggestion(key, next, count));
+    }
+    final order = ['budget', 'maxWeightGrams', 'wearType', 'requireAnc'];
+    options.sort((a, b) {
+      final c = b.count.compareTo(a.count);
+      return c != 0 ? c : order.indexOf(a.key).compareTo(order.indexOf(b.key));
+    });
+    return options;
+  }
+}
+
+class RelaxationSuggestion {
+  const RelaxationSuggestion(this.key, this.preferences, this.count);
+  final String key;
+  final ProductPreferences preferences;
+  final int count;
+  String get label =>
+      '${switch (key) {
+        'budget' => '예산 제한 해제',
+        'maxWeightGrams' => '최대 무게 제한 해제',
+        'wearType' => '착용 형태 제한 해제',
+        _ => 'ANC 필수 해제',
+      }} · $count개 후보';
 }
