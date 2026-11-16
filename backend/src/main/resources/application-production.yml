@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${PICKWISE_DB_URL}
+    username: ${PICKWISE_DB_USER}
+    password: ${PICKWISE_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+server:
+  forward-headers-strategy: none
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+  shutdown: graceful
+  tomcat:
+    threads:
+      max: 50
+    accept-count: 100
+    max-http-form-post-size: 16KB
+    connection-timeout: 10s

@@ -1,0 +1,35 @@
+name: pickwise
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: pickwise
+      MYSQL_USER: pickwise
+      MYSQL_PASSWORD: ${PICKWISE_DB_PASSWORD:?Set PICKWISE_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${PICKWISE_MYSQL_ROOT_PASSWORD:?Set PICKWISE_MYSQL_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - pickwise-mysql-data:/var/lib/mysql
+      - ./docker/01-create-test-db.sql:/docker-entrypoint-initdb.d/01-create-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=$$MYSQL_PASSWORD mysql -h 127.0.0.1 -u pickwise -e 'SELECT 1' pickwise"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  api:
+    build: .
+    environment:
+      PICKWISE_DB_URL: jdbc:mysql://mysql:3306/pickwise?connectionTimeZone=UTC
+      PICKWISE_DB_USER: pickwise
+      PICKWISE_DB_PASSWORD: ${PICKWISE_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  pickwise-mysql-data:

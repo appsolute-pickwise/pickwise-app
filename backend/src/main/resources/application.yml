@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: pickwise-api
+  datasource:
+    url: ${PICKWISE_DB_URL:jdbc:mysql://localhost:3307/pickwise?connectionTimeZone=UTC}
+    username: ${PICKWISE_DB_USER:pickwise}
+    password: ${PICKWISE_DB_PASSWORD}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/mysql
+
+server:
+  port: ${PORT:8080}
