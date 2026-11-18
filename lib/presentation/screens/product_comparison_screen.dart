@@ -460,9 +460,7 @@ class _SpecificationTableState extends State<_SpecificationTable> {
                 .toList(growable: false),
             detailValues: displayedRows[index].$2 == 'price'
                 ? products
-                      .map(
-                        (product) => formatCompactDate(product.priceCheckedAt),
-                      )
+                      .map((product) => formatPriceFreshness(product))
                       .toList(growable: false)
                 : displayedRows[index].$2 == 'battery'
                 ? products

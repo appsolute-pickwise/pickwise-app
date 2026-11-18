@@ -32,3 +32,11 @@ String priceComparisonSiteLabel(PriceComparisonSite site) {
     PriceComparisonSite.naver => '네이버 쇼핑',
   };
 }
+
+String formatPriceFreshness(Product product) {
+  final fetched = product.priceFetchedAt?.toLocal();
+  final checked = fetched == null
+      ? '${formatCompactDate(product.priceCheckedAt)} 수동 확인'
+      : '${formatCompactDate(fetched)} ${fetched.hour.toString().padLeft(2, '0')}:${fetched.minute.toString().padLeft(2, '0')} 조회';
+  return product.priceRefreshStatus == 'failed' ? '$checked · 갱신 지연' : checked;
+}

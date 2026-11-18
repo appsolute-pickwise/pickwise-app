@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/app_navigation_controller.dart';
 import '../providers/product_provider.dart';
+import '../providers/session_provider.dart';
+import 'watchlist_screen.dart';
 import '../widgets/pickwise_bottom_navigation.dart';
 import 'home_screen.dart';
 import 'my_page_screen.dart';
@@ -15,7 +19,72 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
+  Timer? _catalogTimer;
+  StreamSubscription<bool>? _pushMessages;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _startCatalogTimer();
+    final session = context.read<SessionProvider?>();
+    _pushMessages = session?.push.messages.stream.listen((opened) {
+      if (!mounted || !session.loggedIn) return;
+      if (opened) {
+        session.push.pendingOpen = false;
+        _openAlerts();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('새 가격 알림이 도착했어요.'),
+            action: SnackBarAction(label: '알림함', onPressed: _openAlerts),
+          ),
+        );
+      }
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && session?.loggedIn == true && session!.push.pendingOpen) {
+        session.push.pendingOpen = false;
+        _openAlerts();
+      }
+    });
+  }
+
+  void _openAlerts() {
+    if (mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => const WatchlistScreen(alerts: true),
+        ),
+      );
+    }
+  }
+
+  void _startCatalogTimer() {
+    _catalogTimer?.cancel();
+    _catalogTimer = Timer.periodic(const Duration(minutes: 5), (_) {
+      if (mounted) unawaited(context.read<ProductProvider>().loadProducts());
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _catalogTimer?.cancel();
+    if (state == AppLifecycleState.resumed) {
+      unawaited(context.read<ProductProvider>().loadProducts());
+      _startCatalogTimer();
+    }
+  }
+
+  @override
+  void dispose() {
+    _catalogTimer?.cancel();
+    unawaited(_pushMessages?.cancel());
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   final _scrolled = List.filled(PickWiseTab.values.length, false);
 
   bool _onScroll(ScrollNotification notification) {

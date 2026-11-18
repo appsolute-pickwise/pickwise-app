@@ -22,6 +22,11 @@ class Product {
     required this.priceComparisonSite,
     required this.priceComparisonUrl,
     required this.specs,
+    this.priceFetchedAt,
+    this.priceAttemptedAt,
+    this.priceRefreshStatus = 'manual',
+    this.version = 0,
+    this.priceAutoRefresh = true,
     this.imageAsset,
     this.tags = const [],
   });
@@ -32,6 +37,11 @@ class Product {
   final String category;
   final int price;
   final DateTime priceCheckedAt;
+  final DateTime? priceFetchedAt;
+  final DateTime? priceAttemptedAt;
+  final String priceRefreshStatus;
+  final int version;
+  final bool priceAutoRefresh;
   final PriceComparisonSite priceComparisonSite;
   final Uri priceComparisonUrl;
   final String? imageAsset;
@@ -68,6 +78,15 @@ class Product {
         json['priceComparisonSite'],
       ),
       priceComparisonUrl: Uri.parse(json['priceComparisonUrl'] as String),
+      priceFetchedAt: DateTime.tryParse(
+        json['priceFetchedAt'] as String? ?? '',
+      ),
+      priceAttemptedAt: DateTime.tryParse(
+        json['priceAttemptedAt'] as String? ?? '',
+      ),
+      priceRefreshStatus: json['priceRefreshStatus'] as String? ?? 'manual',
+      version: json['version'] as int? ?? 0,
+      priceAutoRefresh: json['priceAutoRefresh'] as bool? ?? true,
       imageAsset: json['imageAsset'] as String?,
       tags: List<String>.unmodifiable(
         (json['tags'] as List? ?? const []).cast<String>(),

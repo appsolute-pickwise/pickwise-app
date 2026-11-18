@@ -83,6 +83,7 @@ class PickwiseApi {
     ).timeout(const Duration(seconds: 10));
     if (epoch != sessionEpoch &&
         (path.contains('/me/') ||
+            path.startsWith('/api/v1/admin/') ||
             path == '/api/v1/auth/me' ||
             path == '/api/v1/auth/logout')) {
       throw const ApiException(401, '계정이 변경됐어요.');
@@ -111,6 +112,7 @@ class PickwiseApi {
     if (response.statusCode >= 400) {
       throw ApiException(response.statusCode, switch (response.statusCode) {
         401 => '로그인 정보가 올바르지 않거나 만료됐어요. 다시 로그인해주세요.',
+        403 => '관리자 권한이 없어요. 계정 권한을 확인해주세요.',
         409 => '중복 계정이거나 다른 곳에서 수정한 기록이에요. 새로고침해주세요.',
         404 => '정보를 찾을 수 없어요.',
         400 => '입력한 정보를 확인해주세요.',

@@ -18,3 +18,10 @@ android/.kotlin/
 
 # FVM Version Cache
 .fvm/
+
+firebase-debug*.log
+
+# Firebase client configuration (provided locally)
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+/lib/data/services/firebase_options.dart

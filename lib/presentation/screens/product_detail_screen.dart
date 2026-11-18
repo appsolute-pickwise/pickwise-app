@@ -1,6 +1,12 @@
 import '../widgets/catalog_receipt.dart';
+import '../widgets/price_history_section.dart';
+import '../widgets/watch_control.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/product_provider.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,6 +67,10 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final products = context.watch<ProductProvider?>()?.products;
+    final product =
+        products?.where((item) => item.id == this.product.id).firstOrNull ??
+        this.product;
     final caseBattery = product.caseBattery;
     final battery = caseBattery ?? product.earbudBattery;
     final includesCase = caseBattery != null;
@@ -124,10 +134,16 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 3),
             Text(
-              '${priceComparisonSiteLabel(product.priceComparisonSite)} 기준 · ${formatDate(product.priceCheckedAt)} 확인',
+              '${priceComparisonSiteLabel(product.priceComparisonSite)} 기준 · ${formatPriceFreshness(product)}',
               style: const TextStyle(color: _muted, fontSize: 12),
             ),
             const CatalogReceipt(),
+            WatchControl(product: product),
+            const SizedBox(height: 20),
+            PriceHistorySection(
+              product: product,
+              api: context.read<ProductProvider?>()?.api,
+            ),
             const SizedBox(height: 29),
             LayoutBuilder(
               builder: (context, constraints) {

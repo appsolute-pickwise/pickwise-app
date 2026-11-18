@@ -3,8 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/services/pickwise_api.dart';
+import '../../data/services/device_push_service.dart';
 import '../../data/models/product_preferences.dart';
 import 'product_provider.dart';
 
@@ -39,6 +41,7 @@ class SessionProvider extends ChangeNotifier {
       }),
     );
   }
+  late final DevicePushService push = DevicePushService(api);
   final PickwiseApi api;
   final ProductProvider products;
   final SessionStorage storage;
@@ -65,6 +68,8 @@ class SessionProvider extends ChangeNotifier {
 
   int get generation => api.sessionEpoch;
   bool get loggedIn => userId != null;
+  bool _isAdmin = false;
+  bool get isAdmin => loggedIn && _isAdmin;
   Future<void> initialize() async {
     final epoch = generation;
     message = null;
@@ -122,6 +127,7 @@ class SessionProvider extends ChangeNotifier {
     api.token = null;
     userId = null;
     this.email = null;
+    _isAdmin = false;
     await products.switchIdentity('guest');
     await _store(Map<String, dynamic>.from(result as Map), loginEpoch);
     if (loginEpoch != generation) return;
@@ -143,6 +149,7 @@ class SessionProvider extends ChangeNotifier {
     if (epoch != generation) return;
     userId = me['id'] as String;
     email = me['email'] as String;
+    _isAdmin = me['admin'] == true;
     await products.switchIdentity(userId!, preserveDraft: _preserveGuestDraft);
     _preserveGuestDraft = false;
     if (epoch != generation) return;
@@ -153,6 +160,7 @@ class SessionProvider extends ChangeNotifier {
     });
     if (epoch != generation) return;
     notifyListeners();
+    unawaited(push.restore(userId!));
     final revision = products.preferenceRevision;
     try {
       final result = await api.request('GET', '/api/v1/me/preferences');
@@ -236,6 +244,34 @@ class SessionProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteAccount(String currentPassword) async {
+    final epoch = generation, owner = userId;
+    if (owner == null) throw const ApiException(401, '로그인이 필요해요.');
+    await api.request('DELETE', '/api/v1/me/account', {
+      'currentPassword': currentPassword,
+    });
+    if (epoch != generation) return;
+    try {
+      try {
+        await clear();
+      } finally {
+        final preferences = await SharedPreferences.getInstance();
+        for (final key in [
+          'selectionPreferences:$owner',
+          'defaultPreferences:$owner',
+          'comparison_product_ids:$owner',
+          'push-enabled:$owner',
+        ]) {
+          if (!await preferences.remove(key)) {
+            throw StateError('계정별 기기 정보를 지우지 못했어요.');
+          }
+        }
+      }
+    } catch (_) {
+      throw const ApiException(0, '회원 탈퇴는 완료됐어요. 기기 정보 정리를 위해 앱을 다시 실행해주세요.');
+    }
+  }
+
   Future<void> logout() async {
     final epoch = generation;
     try {
@@ -248,6 +284,11 @@ class SessionProvider extends ChangeNotifier {
         }
         return;
       }
+      try {
+        await push.disable();
+      } catch (_) {
+        /* 기기 해제 실패와 관계없이 서버 로그인 세션은 폐기한다. */
+      }
       await api.request('POST', '/api/v1/auth/logout');
     } finally {
       if (epoch == generation) await clear();
@@ -255,11 +296,13 @@ class SessionProvider extends ChangeNotifier {
   }
 
   Future<void> clear() async {
+    push.reset();
     final epoch = ++api.sessionEpoch;
     api.token = null;
     _refreshToken = null;
     userId = null;
     email = null;
+    _isAdmin = false;
     _sessionData = {};
     message = '로그인이 종료됐어요. 필요하면 다시 로그인해주세요.';
     final clearing = _serialize(() async {
@@ -273,6 +316,7 @@ class SessionProvider extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    push.dispose();
     api.refreshSession = null;
     api.sessionExpired = null;
     api.client.close();

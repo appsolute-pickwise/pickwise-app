@@ -71,6 +71,7 @@ class ProductProvider extends ChangeNotifier {
   Future<void> _writeSelectionPreferences(String identity, String data) async {
     try {
       final storage = await _getPreferences();
+      if (_identity != identity) return;
       await storage?.setString('selectionPreferences:$identity', data);
     } catch (error, stackTrace) {
       debugPrint('취향을 저장하지 못했습니다: $error\n$stackTrace');
@@ -135,7 +136,7 @@ class ProductProvider extends ChangeNotifier {
   }
 
   List<Product> get products => List.unmodifiable(_products);
-  bool get isLoading => _isLoading;
+  bool get isLoading => _isLoading && _products.isEmpty;
   bool get usingCache => _repository.usingCache;
   String? get cachedAt => _repository.cachedAt;
   bool get hasLoadError => _loadError != null;
@@ -156,6 +157,7 @@ class ProductProvider extends ChangeNotifier {
     if (_isLoading) return;
     final identity = _identity;
     final revision = preferenceRevision;
+    final refreshing = _products.isNotEmpty;
     _isLoading = true;
     _loadError = null;
     notifyListeners();
@@ -172,7 +174,9 @@ class ProductProvider extends ChangeNotifier {
         );
       }
       final savedIds = preferences?.getStringList(_comparisonIdsKey);
-      if (identity != _identity || revision != preferenceRevision) {
+      if (refreshing ||
+          identity != _identity ||
+          revision != preferenceRevision) {
         _restoreSelection(List<String>.of(_selectedProductIds));
       } else if (savedIds != null) {
         _restoreSelection(savedIds);

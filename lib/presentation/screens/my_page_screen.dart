@@ -1,4 +1,7 @@
 import 'change_password_screen.dart';
+import 'delete_account_screen.dart';
+import 'watchlist_screen.dart';
+import 'admin_products_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -332,6 +335,26 @@ class _MyPageScreenState extends State<MyPageScreen> {
                 ),
               ),
             ),
+            if (session.loggedIn) ...[
+              _MenuRow(
+                icon: Icons.favorite_border_rounded,
+                title: '관심 제품',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const WatchlistScreen(),
+                  ),
+                ),
+              ),
+              _MenuRow(
+                icon: Icons.notifications_none_rounded,
+                title: '가격 알림함',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const WatchlistScreen(alerts: true),
+                  ),
+                ),
+              ),
+            ],
             _MenuRow(
               icon: Icons.bookmark_border_rounded,
               title: '저장한 비교',
@@ -365,6 +388,19 @@ class _MyPageScreenState extends State<MyPageScreen> {
                 children: [const Text('나에게 중요한 기준으로 제품을 비교하고 선택하는 앱입니다.')],
               ),
             ),
+            if (session.isAdmin)
+              _MenuRow(
+                icon: Icons.inventory_2_outlined,
+                title: '상품 관리',
+                subtitle: '제품·가격·출처 등록 및 수정',
+                onTap: _busy
+                    ? null
+                    : () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const AdminProductsScreen(),
+                        ),
+                      ),
+              ),
             if (session.loggedIn)
               _MenuRow(
                 icon: Icons.lock_outline_rounded,
@@ -382,6 +418,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                 icon: Icons.logout_rounded,
                 title: '로그아웃',
                 onTap: _busy ? null : () => _logout(session),
+              ),
+            if (session.loggedIn)
+              _MenuRow(
+                icon: Icons.person_remove_outlined,
+                title: '회원 탈퇴',
+                onTap: _busy
+                    ? null
+                    : () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const DeleteAccountScreen(),
+                        ),
+                      ),
               ),
             if (_busy)
               const Padding(

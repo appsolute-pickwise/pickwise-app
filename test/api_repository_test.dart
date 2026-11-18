@@ -31,6 +31,9 @@ void main() {
     final catalog = jsonDecode(
       File('assets/data/products.json').readAsStringSync(),
     ) as List;
+    catalog.first['priceFetchedAt'] = '2026-11-16T01:27:00Z';
+    catalog.first['priceAttemptedAt'] = '2026-11-16T01:27:00Z';
+    catalog.first['priceRefreshStatus'] = 'updated';
     var fail = false;
     final api = PickwiseApi(
       baseUrl: 'https://test.invalid',
@@ -43,10 +46,16 @@ void main() {
       }),
     );
     final repository = ProductRepository(api: api);
-    expect((await repository.loadProducts()).length, 20);
+    final fetched = await repository.loadProducts();
+    expect(fetched.length, 20);
+    expect(fetched.first.priceFetchedAt, DateTime.utc(2026, 11, 16, 1, 27));
+    expect(fetched.first.priceRefreshStatus, 'updated');
     expect(repository.usingCache, false);
     fail = true;
-    expect((await repository.loadProducts()).length, 20);
+    final cached = await repository.loadProducts();
+    expect(cached.length, 20);
+    expect(cached.first.priceFetchedAt, fetched.first.priceFetchedAt);
+    expect(cached.first.priceRefreshStatus, 'updated');
     expect(repository.usingCache, true);
     expect(repository.cachedAt, isNotNull);
     api.client.close();

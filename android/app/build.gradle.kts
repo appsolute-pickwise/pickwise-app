@@ -4,6 +4,11 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Firebase 구성 파일은 로컬 또는 CI 보안 설정에서 제공한다.
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 android {
     namespace = "kr.appsolute.pickwise"
     compileSdk = flutter.compileSdkVersion

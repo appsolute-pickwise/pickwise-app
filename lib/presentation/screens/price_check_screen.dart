@@ -1,6 +1,10 @@
 import '../widgets/catalog_receipt.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/product_provider.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,6 +44,10 @@ class PriceCheckScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final products = context.watch<ProductProvider?>()?.products;
+    final product =
+        products?.where((item) => item.id == this.product.id).firstOrNull ??
+        this.product;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -101,14 +109,12 @@ class PriceCheckScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 3),
                         Text(
-                          '${formatDate(product.priceCheckedAt)} 확인 가격',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: _muted, fontSize: 9),
+                          formatPriceFreshness(product),
+                          style: const TextStyle(color: _muted, fontSize: 11),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '가격은 $_priceSiteName에서 확인',
+                          '${formatPrice(product.price)}원',
                           style: TextStyle(
                             color: _green,
                             fontSize: 15,
@@ -123,8 +129,10 @@ class PriceCheckScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const CatalogReceipt(),
-            const Text(
-              '표시 가격은 수동 확인 가격이에요. 최신 가격·배송비는 판매 페이지에서 확인해주세요.',
+            Text(
+              product.priceFetchedAt == null
+                  ? '수동 확인 가격이에요. 최종 가격·배송비는 판매 페이지에서 확인해주세요.'
+                  : '다나와 조회 가격이에요. 최종 가격·배송비·쿠폰 조건은 판매 페이지에서 확인해주세요.',
               style: TextStyle(color: _muted, fontSize: 12),
             ),
             Row(
@@ -165,7 +173,7 @@ class PriceCheckScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    '실시간 판매처 가격은 앱에서 합산하지 않아요.',
+                    '배송비·쿠폰을 적용한 결제 금액은 판매처마다 달라요.',
                     style: TextStyle(color: _ink, fontSize: 13),
                   ),
                   const SizedBox(height: 23),
