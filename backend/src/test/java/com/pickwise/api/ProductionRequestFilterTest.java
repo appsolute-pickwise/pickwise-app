@@ -5,6 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 class ProductionRequestFilterTest {
+ @Test void deletionPasswordChecksAreLimitedAndNeverCached() throws Exception {
+  var filter=new ProductionRequestFilter(new TestClock());
+  for(int i=0;i<6;i++) {
+   var response=new MockHttpServletResponse();
+   filter.doFilter(new MockHttpServletRequest("DELETE","/api/v1/me/account"),response,(req,res)->{});
+   assertThat(response.getStatus()).isEqualTo(i<5?200:429);
+   assertThat(response.getHeader("Cache-Control")).isEqualTo("no-store");
+  }
+ }
  static class TestClock extends Clock {
   long millis;
   public ZoneId getZone(){return ZoneOffset.UTC;}

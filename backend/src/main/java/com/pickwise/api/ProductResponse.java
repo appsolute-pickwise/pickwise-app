@@ -15,7 +15,12 @@ public record ProductResponse(
         LocalDate priceCheckedAt,
         String priceComparisonSite,
         String priceComparisonUrl,
-        List<Specification> specs
+        List<Specification> specs,
+        java.time.Instant priceFetchedAt,
+        java.time.Instant priceAttemptedAt,
+        String priceRefreshStatus,
+        int version,
+        boolean priceAutoRefresh
 ) {
     public record Specification(
             String key,

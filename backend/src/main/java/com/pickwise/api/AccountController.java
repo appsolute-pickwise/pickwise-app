@@ -26,7 +26,7 @@ public class AccountController {
     @PostMapping("/refresh")
     public Map<String,String> refresh(@Valid @RequestBody Refresh body) { return accounts.refresh(body.refreshToken()); }
     @GetMapping("/me")
-    public Map<String,String> me(@RequestHeader(value="Authorization",required=false) String header) { return accounts.me(header); }
+    public Map<String,Object> me(@RequestHeader(value="Authorization",required=false) String header) { return accounts.me(header); }
     @PostMapping("/logout") @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
     public void logout(@RequestHeader(value="Authorization",required=false) String header) {
         accounts.logout(header);

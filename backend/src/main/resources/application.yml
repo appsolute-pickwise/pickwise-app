@@ -11,3 +11,10 @@ spring:
 
 server:
   port: ${PORT:8080}
+
+pickwise:
+  price-refresh:
+    enabled: ${PICKWISE_PRICE_REFRESH_ENABLED:false}
+
+  firebase:
+    enabled: ${PICKWISE_FIREBASE_ENABLED:false}

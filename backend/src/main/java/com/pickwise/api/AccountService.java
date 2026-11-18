@@ -79,9 +79,10 @@ public class AccountService {
         jdbc.update("DELETE FROM auth_sessions WHERE refresh_hash=?",digest(token));
         return issue(row.get("user_id").toString(),((Timestamp)row.get("refresh_expires_at")).toInstant());
     }
-    public Map<String,String> me(String header) {
+    public Map<String,Object> me(String header) {
         UUID owner=authenticate(header);
-        return Map.of("id",owner.toString(),"email",jdbc.queryForObject("SELECT email FROM app_users WHERE id=?",String.class,owner.toString()));
+        return jdbc.queryForObject("SELECT email,is_admin FROM app_users WHERE id=?",
+                (rs,n)->Map.<String,Object>of("id",owner.toString(),"email",rs.getString("email"),"admin",rs.getBoolean("is_admin")),owner.toString());
     }
 
     public UUID authenticate(String header) {
@@ -97,6 +98,19 @@ public class AccountService {
     public void logout(String header) {
         authenticate(header);
         jdbc.update("DELETE FROM auth_sessions WHERE token_hash=?", digest(header.substring(7)));
+    }
+
+    @Transactional
+    public void deleteAccount(String header,String currentPassword) {
+        UUID owner=authenticate(header);
+        String hash=jdbc.queryForObject("SELECT password_hash FROM app_users WHERE id=? FOR UPDATE",String.class,owner.toString());
+        authenticate(header);
+        String[] parts=hash.split(":",2);
+        String actual=derive(currentPassword,Base64.getDecoder().decode(parts[0]));
+        if(!MessageDigest.isEqual(actual.getBytes(StandardCharsets.UTF_8),parts[1].getBytes(StandardCharsets.UTF_8)))
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"현재 비밀번호를 확인해주세요.");
+        jdbc.update("UPDATE product_changes SET actor_id=NULL WHERE actor_id=?",owner.toString());
+        jdbc.update("DELETE FROM app_users WHERE id=?",owner.toString());
     }
 
     @Transactional

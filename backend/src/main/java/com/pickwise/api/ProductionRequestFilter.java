@@ -37,11 +37,11 @@ public class ProductionRequestFilter extends OncePerRequestFilter {
         String path;
         try {path=org.springframework.web.util.UriUtils.decode(req.getRequestURI(),java.nio.charset.StandardCharsets.UTF_8).split(";",2)[0];}
         catch(IllegalArgumentException error) {res.setStatus(400);return;}
-        if(path.startsWith("/api/v1/me/")||path.startsWith("/api/v1/auth/")) res.setHeader("Cache-Control","no-store");
+        if(path.startsWith("/api/v1/me/")||path.startsWith("/api/v1/auth/")||path.startsWith("/api/v1/admin/")) res.setHeader("Cache-Control","no-store");
         boolean credentials=path.equals("/api/v1/auth/login")||path.equals("/api/v1/auth/register");
         boolean refresh=path.equals("/api/v1/auth/refresh");
-        if((credentials||refresh||path.equals("/api/v1/me/password")) && !req.getMethod().equals("GET")) {
-            String kind=credentials?"credentials":refresh?"refresh":"password";
+        if((credentials||refresh||path.equals("/api/v1/me/password")||path.equals("/api/v1/me/account")) && !req.getMethod().equals("GET")) {
+            String kind=credentials?"credentials":refresh?"refresh":path.equals("/api/v1/me/account")?"account-deletion":"password";
             if(!allow((trustProxy && req.getHeader("X-Real-IP")!=null?req.getHeader("X-Real-IP"):req.getRemoteAddr())+":"+kind,refresh?60:credentials?20:5)) {
                 res.setStatus(429);res.setHeader("Retry-After","60");res.setContentType("application/json;charset=UTF-8");
                 res.getWriter().write("{\"message\":\"요청이 많아요. 잠시 후 다시 시도해주세요.\"}");return;

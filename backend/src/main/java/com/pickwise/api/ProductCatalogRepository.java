@@ -90,7 +90,9 @@ public class ProductCatalogRepository {
                 product.imageAsset(), List.copyOf(tags.getOrDefault(product.id(), List.of())),
                 product.price(), product.priceCheckedAt(), product.priceComparisonSite(),
                 product.priceComparisonUrl(),
-                List.copyOf(specs.getOrDefault(product.id(), List.of())))).toList();
+                List.copyOf(specs.getOrDefault(product.id(), List.of())),
+                product.priceFetchedAt(), product.priceAttemptedAt(), product.priceRefreshStatus(),
+                product.version(), product.priceAutoRefresh())).toList();
     }
 
     private ProductResponse.Specification specification(ResultSet rs) throws SQLException {
@@ -109,7 +111,14 @@ public class ProductCatalogRepository {
                 rs.getString("id"), rs.getString("brand"), rs.getString("name"),
                 rs.getString("category"), rs.getString("image_asset"),
                 rs.getInt("price"), date(rs, "price_checked_at"),
-                rs.getString("price_comparison_site"), rs.getString("price_comparison_url"));
+                rs.getString("price_comparison_site"), rs.getString("price_comparison_url"),
+                instant(rs, "price_fetched_at"), instant(rs, "price_attempted_at"),
+                rs.getString("price_refresh_status"), rs.getInt("version"), rs.getBoolean("price_auto_refresh"));
+    }
+
+    private static java.time.Instant instant(ResultSet rs, String column) throws SQLException {
+        var value = rs.getTimestamp(column);
+        return value == null ? null : value.toInstant();
     }
 
     private static LocalDate date(ResultSet rs, String column) throws SQLException {
@@ -123,5 +132,7 @@ public class ProductCatalogRepository {
 
     private record ProductRow(String id, String brand, String name, String category,
                               String imageAsset, int price, LocalDate priceCheckedAt,
-                              String priceComparisonSite, String priceComparisonUrl) {}
+                              String priceComparisonSite, String priceComparisonUrl,
+                              java.time.Instant priceFetchedAt, java.time.Instant priceAttemptedAt,
+                              String priceRefreshStatus, int version, boolean priceAutoRefresh) {}
 }

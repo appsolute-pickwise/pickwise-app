@@ -5,3 +5,6 @@ target
 .git
 .idea
 *.log
+
+.secrets
+*service-account*.json

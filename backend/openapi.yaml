@@ -1,11 +1,219 @@
 openapi: 3.0.3
 info:
   title: PickWise API
-  version: 1.1.0
-  description: 제품 카탈로그 읽기 API. 가격은 수동 확인 시점의 값이다.
+  version: 1.5.0
+  description: 제품 카탈로그 읽기 API. 가격은 마지막 확인 값이며 자동 조회 시각과 갱신 상태를 별도로 제공한다.
 servers:
   - url: http://localhost:8080
 paths:
+  /api/v1/me/account:
+    delete:
+      summary: 현재 비밀번호 재확인 후 본인 계정 영구 탈퇴
+      description: 계정·전체 로그인 세션·취향·저장 비교·관심 제품·알림·기기 연결을 삭제한다. 공용 상품과 가격 이력은 보존한다. 관리자 상품 변경 이력은 작성자 연결만 제거한다. 사용자 ID를 지정할 수 없다. 응답이 불명확하면 자동 재전송하지 말고 재로그인으로 상태를 확인한다.
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [currentPassword]
+              properties:
+                currentPassword: { type: string, minLength: 8, maxLength: 128, writeOnly: true }
+      responses:
+        '204': { description: 회원 탈퇴 완료, 모든 기기의 접근·갱신 토큰 무효화 }
+        '400': { description: 입력 오류 }
+        '401': { description: 로그인 필요 또는 세션 만료 }
+        '422': { description: 현재 비밀번호 불일치, 계정과 세션 유지 }
+        '429': { description: 탈퇴 요청 제한, Retry-After 참고 }
+  /api/v1/me/watches:
+    get:
+      summary: 내 관심 제품과 목표가 조회
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: 계정별 최근 수정순 목록, 최대 100개
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/ProductWatch' } }
+        '401': { description: 로그인 필요 }
+  /api/v1/me/watches/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    put:
+      summary: 관심 제품 저장 또는 목표가 수정·알림 재설정
+      description: targetPrice가 null이면 관심 제품만 저장한다. 신규 version은 0, 수정은 조회한 version을 보낸다. 저장 이후 같은 출처의 정상 자동 조회가 목표가 이하이면 설정당 한 번만 알린다. 기존 가격이나 수동 입력으로 즉시 알리지 않는다.
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetPrice: { type: integer, nullable: true, minimum: 1, maximum: 2147483647 }
+                version: { type: integer, minimum: 0, default: 0 }
+      responses:
+        '204': { description: 저장 완료 }
+        '400': { description: 입력 오류 또는 관심 제품 100개 초과 }
+        '401': { description: 로그인 필요 }
+        '404': { description: 없는 제품 }
+        '409': { description: 버전 충돌, 최신 목록을 조회한 뒤 명시적으로 다시 저장 }
+    delete:
+      summary: 내 관심 제품과 목표가 삭제
+      description: 이미 생성된 알림 스냅샷은 보존한다.
+      security: [{ bearerAuth: [] }]
+      responses:
+        '204': { description: 삭제 완료 }
+        '401': { description: 로그인 필요 }
+        '404': { description: 내 관심 제품이 아님 }
+  /api/v1/me/alerts:
+    get:
+      summary: 내 가격 알림 최신 100개 조회
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: 조회 당시 제품명·가격·출처를 보존한 스냅샷
+          content:
+            application/json:
+              schema: { type: array, maxItems: 100, items: { $ref: '#/components/schemas/PriceAlert' } }
+        '401': { description: 로그인 필요 }
+  /api/v1/me/alerts/{id}/read:
+    put:
+      summary: 내 알림 읽음 처리
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        '204': { description: 이미 읽은 경우에도 성공 }
+        '401': { description: 로그인 필요 }
+        '404': { description: 내 알림이 아님 }
+  /api/v1/me/push-status:
+    get:
+      summary: 서버 Firebase 발송 클라이언트 초기화 여부
+      description: 실제 기기 도착이나 APNs 설정 성공을 보장하는 값은 아니다.
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: 서버 발송 인증 초기화 상태
+          content:
+            application/json:
+              schema: { type: object, required: [configured], properties: { configured: { type: boolean } } }
+        '401': { description: 로그인 필요 }
+  /api/v1/me/push-device:
+    put:
+      summary: 등록 완료된 Firebase Installation ID를 현재 계정에 연결
+      description: 계정당 최대 10개, 동일 기기는 마지막으로 등록한 계정에만 연결한다. token 필드는 FlutterFire onRegistered가 반환한 FID이다.
+      security: [{ bearerAuth: [] }]
+      requestBody: { $ref: '#/components/requestBodies/PushDevice' }
+      responses:
+        '204': { description: 연결 완료 }
+        '400': { description: 잘못된 FID·플랫폼 또는 기기 수 초과 }
+        '401': { description: 로그인 필요 }
+    delete:
+      summary: 현재 계정에 연결된 기기 푸시 해제
+      security: [{ bearerAuth: [] }]
+      requestBody: { $ref: '#/components/requestBodies/PushDevice' }
+      responses:
+        '204': { description: 해제 완료 }
+        '400': { description: 입력 오류 }
+        '401': { description: 로그인 필요 }
+  /api/v1/products/{id}/price-history:
+    get:
+      summary: 기간·출처·확인 방식별 실제 가격 관측 이력
+      description: 가격이 같아도 성공한 조회는 기록한다. 자동 조회와 수동 입력은 분리한다. source를 생략하면 현재 제품의 출처를 사용한다. 과거 가격을 추정하거나 실패한 조회를 0원으로 채우지 않는다.
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: days, in: query, schema: { type: integer, enum: [7, 30, 90], default: 30 } }
+        - { name: kind, in: query, schema: { type: string, enum: [automatic, manual], default: automatic } }
+        - { name: source, in: query, description: 응답 sources의 key. 해당 기간·확인 방식에 있는 출처 또는 현재 출처만 선택 가능, schema: { type: string, pattern: '^[a-f0-9]{64}$' } }
+      responses:
+        '200':
+          description: 시간순 관측값. 최대 3000건, 초과 시 최신 3000건과 truncated=true. sources의 count와 total은 기간 내 전체 건수.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PriceHistory' }
+        '400': { description: 지원하지 않는 기간·확인 방식·출처 }
+        '404': { description: 없는 제품 }
+  /api/v1/admin/products:
+    post:
+      summary: 관리자 상품 등록
+      description: 기존 계정의 DB 관리자 권한이 필요하다. 가입·프로필 요청으로 관리자 권한을 얻을 수 없다. version은 0이다.
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AdminProductInput' }
+      responses:
+        '201':
+          description: 등록 완료 및 변경 이력 저장
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '400': { description: 가격·사양 타입·출처·확인일 오류 }
+        '401': { description: 세션 없음 또는 만료 }
+        '403': { description: 관리자 권한 없음 }
+        '409': { description: 이미 사용 중인 제품 ID. 자동 재전송하지 않음 }
+  /api/v1/admin/products/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, maxLength: 120 } }
+    get:
+      summary: 관리자 편집용 최신 제품 조회
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: 현재 제품과 버전
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '401': { description: 세션 없음 또는 만료 }
+        '403': { description: 관리자 권한 없음 }
+        '404': { description: 없는 제품 }
+    put:
+      summary: 관리자 상품 전체 수정
+      description: 본문 id는 경로와 같아야 한다. 최신 version이 아니면 409이며 부분 저장하지 않는다. 가격 관련 필드 수정 시 수동 확인 값으로 전환한다. 기존 비교 스냅샷은 보존한다.
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AdminProductInput' }
+      responses:
+        '200':
+          description: 수정 완료 및 변경 이력 저장
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Product' }
+        '400': { description: 잘못된 입력 }
+        '401': { description: 세션 없음 또는 만료 }
+        '403': { description: 관리자 권한 없음 }
+        '404': { description: 없는 제품 }
+        '409': { description: 다른 편집 또는 자동 가격 갱신과 충돌. 최신 정보를 명시적으로 다시 불러올 것 }
+  /api/v1/admin/products/{id}/changes:
+    get:
+      summary: 관리자 변경 기록 최근 20개 조회
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: 최신 변경부터 반환. 자동 가격 수집은 관리자 변경 이력에 포함하지 않음
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { type: integer, format: int64 }
+                    action: { type: string, enum: [CREATE, UPDATE] }
+                    changedAt: { type: string, format: date-time }
+                    before: { $ref: '#/components/schemas/ProductBeforeChange' }
+                    after: { $ref: '#/components/schemas/Product' }
+        '401': { description: 세션 없음 또는 만료 }
+        '403': { description: 관리자 권한 없음 }
+        '404': { description: 없는 제품 }
   /api/v1/me/password:
     put:
       summary: 현재 비밀번호 재확인 후 변경하고 모든 기기의 세션 폐기
@@ -120,6 +328,7 @@ paths:
                 properties:
                   id: { type: string, format: uuid }
                   email: { type: string, format: email }
+                  admin: { type: boolean, description: DB에서 확인한 상품 관리자 권한 }
         '401': { description: 접근 세션 만료 }
   /api/v1/auth/logout:
     post:
@@ -201,6 +410,16 @@ components:
         application/json:
           schema: { $ref: '#/components/schemas/Session' }
   requestBodies:
+    PushDevice:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [token, platform]
+            properties:
+              token: { type: string, minLength: 1, maxLength: 4096, description: 등록 완료된 Firebase Installation ID }
+              platform: { type: string, enum: [android, ios] }
     Credentials:
       required: true
       content:
@@ -229,6 +448,63 @@ components:
               preferences: { $ref: '#/components/schemas/Preferences' }
               version: { type: integer, minimum: 0, default: 0 }
   schemas:
+    ProductWatch:
+      type: object
+      required: [productId, name, price, targetPrice, version, armed, sourceChanged, priceFetchedAt]
+      properties:
+        productId: { type: string }
+        name: { type: string }
+        price: { type: integer, description: 현재 카탈로그 가격 }
+        targetPrice: { type: integer, nullable: true }
+        version: { type: integer, minimum: 0 }
+        armed: { type: boolean, description: 목표가 알림 대기 여부 }
+        sourceChanged: { type: boolean, description: 저장 이후 가격 출처 변경 여부 }
+        priceFetchedAt: { type: string, format: date-time, nullable: true }
+    PriceAlert:
+      type: object
+      required: [id, productId, name, price, targetPrice, sourceUrl, observedAt, read]
+      properties:
+        id: { type: string, format: uuid }
+        productId: { type: string }
+        name: { type: string, description: 알림 생성 당시 제품명 }
+        price: { type: integer, description: 실제 자동 관측 가격 }
+        targetPrice: { type: integer }
+        sourceUrl: { type: string, format: uri }
+        observedAt: { type: string, format: date-time }
+        read: { type: boolean }
+    PriceHistory:
+      type: object
+      required: [productId, days, kind, asOf, sourceKey, sources, points, total, truncated]
+      properties:
+        productId: { type: string }
+        days: { type: integer, enum: [7, 30, 90] }
+        kind: { type: string, enum: [automatic, manual] }
+        asOf: { type: string, format: date-time, description: 서버 응답 기준 UTC 시각 }
+        sourceKey: { type: string, description: 선택한 사이트·URL 조합의 SHA-256 }
+        total: { type: integer, format: int64, minimum: 0 }
+        truncated: { type: boolean }
+        sources:
+          type: array
+          items:
+            type: object
+            required: [key, site, url, current, count]
+            properties:
+              key: { type: string }
+              site: { type: string, enum: [danawa, enuri, naver] }
+              url: { type: string, format: uri }
+              current: { type: boolean }
+              count: { type: integer, format: int64 }
+        points:
+          type: array
+          maxItems: 3000
+          items:
+            type: object
+            required: [id, price, observedAt, checkedAt]
+            properties:
+              id: { type: integer, format: int64 }
+              price: { type: integer, minimum: 1, description: 원화 가격 }
+              observedAt: { type: string, format: date-time, description: 자동은 정상 수신 시각, 수동은 서버 입력 시각. 수동 확인일을 과거 시각으로 변환하지 않음 }
+              checkedAt: { type: string, format: date, description: 가격 확인일 }
     Session:
       type: object
       required: [accessToken, refreshToken, expiresAt, refreshExpiresAt]
@@ -275,6 +551,21 @@ components:
             products:
               type: array
               items: { $ref: '#/components/schemas/Product' }
+    ProductBeforeChange:
+      type: object
+      nullable: true
+      allOf: [{ $ref: '#/components/schemas/Product' }]
+    AdminProductInput:
+      description: 제품 관리 입력. 현재 category는 earbuds만 지원한다. 사양은 최대 40개, 키는 중복 불가. 배터리·무게는 양수와 올바른 단위, anc·earHook은 boolean이다. 사양 출처와 확인일은 함께 입력하거나 둘 다 생략한다. 확인일은 미래일 수 없다.
+      allOf:
+        - { $ref: '#/components/schemas/Product' }
+        - type: object
+          required: [version, priceAutoRefresh]
+          properties:
+            id: { type: string, maxLength: 120, pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$' }
+            category: { type: string, enum: [earbuds] }
+            priceAutoRefresh: { type: boolean, description: true는 다나와 제품 링크에서만 허용 }
+            tags: { type: array, maxItems: 8, uniqueItems: true, items: { type: string, minLength: 1, maxLength: 100 } }
     Product:
       type: object
       required: [id, brand, name, category, tags, price, priceCheckedAt, priceComparisonSite, priceComparisonUrl, specs]
@@ -285,8 +576,13 @@ components:
         category: { type: string }
         imageAsset: { type: string, nullable: true }
         tags: { type: array, items: { type: string } }
+        version: { type: integer, minimum: 0, description: 관리자 수정과 가격 자동 갱신 성공 시 증가 }
+        priceAutoRefresh: { type: boolean, description: 제품별 가격 자동 갱신 허용 여부 }
         price: { type: integer, minimum: 1 }
-        priceCheckedAt: { type: string, format: date }
+        priceCheckedAt: { type: string, format: date, description: 마지막 정상 가격 확인일 (한국 시간) }
+        priceFetchedAt: { type: string, format: date-time, nullable: true, description: 외부 페이지 가격을 정상 조회한 UTC 시각. null이면 수동 확인 가격 }
+        priceAttemptedAt: { type: string, format: date-time, nullable: true }
+        priceRefreshStatus: { type: string, enum: [manual, updated, failed], description: failed여도 기존 정상 가격과 확인 시각은 보존 }
         priceComparisonSite: { type: string }
         priceComparisonUrl: { type: string, format: uri }
         specs:

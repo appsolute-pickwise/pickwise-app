@@ -23,6 +23,8 @@ services:
     build: .
     environment:
       PICKWISE_DB_URL: jdbc:mysql://mysql:3306/pickwise?connectionTimeZone=UTC
+      # 공개 배포용 compose에서는 활성화하지 않는다.
+      PICKWISE_PRICE_REFRESH_ENABLED: ${PICKWISE_PRICE_REFRESH_ENABLED:-true}
       PICKWISE_DB_USER: pickwise
       PICKWISE_DB_PASSWORD: ${PICKWISE_DB_PASSWORD}
     ports:

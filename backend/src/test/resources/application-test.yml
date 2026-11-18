@@ -1,3 +1,10 @@
 spring:
   datasource:
     url: ${PICKWISE_TEST_DB_URL:jdbc:mysql://localhost:3307/pickwise_test?connectionTimeZone=UTC}
+
+pickwise:
+  price-refresh:
+    enabled: false
+
+  firebase:
+    enabled: false
